@@ -1,0 +1,38 @@
+.navbar-default {
+    background-color: steelblue;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: deepskyblue;
+}
+
+#app {
+    height: 100vh;
+    background-color: #ACDAF9;
+}
+
+.poll-main-body {
+    height: 80%;
+}
+
+.poll-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    background-color: steelblue;
+    color: white;
+}
