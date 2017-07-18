@@ -17,8 +17,8 @@
     <div id="app">
         @yield('nav')
         @yield('content')
-        @yield('footer')
     </div>
+    @yield('footer')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
