@@ -7,21 +7,25 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <div class="panel poll-form">
+                <h1 class="main-header">Create a poll</h1>
+                <form>
+                    <label>
+                        <input id="fname" type="text" placeholder="You can type your question here.">
+                        <span>Question</span>
+                    </label>
+
+                    <label>
+                        <input class="poll-option-input" id="fname" type="text" placeholder="You can put an option here.">
+                        <span>Option</span>
+                    </label>
+
+                    <label>
+                        <input class="poll-option-input" id="fname" type="text" placeholder="You can put an option here.">
+                        <span>Option</span>
+                    </label>
                     
-
-                    <div class="input-group input-group-lg full-width">
-                        <input type="text" class="form-control poll-input" placeholder="Type your question here">
-                    </div>
-                    <br>
-                    <div class="input-group full-width">
-                        <input type="text" class="form-control poll-input" placeholder="Enter poll option">
-                        <input type="text" class="form-control poll-input" placeholder="Enter poll option">
-                        <input type="text" class="form-control poll-input" placeholder="Enter poll option">
-                    </div>
-
-                    <button type="button" class="btn btn-primary">Create</button>
-                </div>
+                    <input type="submit" value="Create">
+                </form>
             </div>
             <div class="col-sm-3"></div>
         </div>

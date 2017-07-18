@@ -1,5 +1,6 @@
 .navbar-default {
-    background-color: steelblue;
+    background-color: #35dc9b;
+    border-color: transparent;
 }
 
 .navbar-default .navbar-brand {
@@ -15,14 +16,14 @@
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-    background-color: deepskyblue;
+    background-color: #35dc9b;
 }
 
 #app {
     min-height: 100vh;
     height: 100%;
     padding-bottom:40px;
-    background-color: #ACDAF9;
+    background-color: #35dc9b;
 }
 
 .poll-main-body {
@@ -31,8 +32,8 @@
 
 .poll-footer {
     height: 40px;
-    background-color: steelblue;
-    color: white;
+    background-color: white;
+    color: black;
 
     position: relative;
     margin-top: -40px; /* negative value of footer height */
@@ -51,4 +52,81 @@
 
 .poll-form {
     height: 300px;
+}
+
+.main-header {
+    color: white;
+    text-align: center;
+}
+
+form {
+  display: table;
+  margin: 40px auto;
+  
+  label {
+    position: relative;
+    display: block;
+    
+    input {
+      font: 18px Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+      display: block;
+      border: none;
+      padding: 20px;
+      width: 400px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      outline: none;
+      transition: all 0.2s ease-in-out;
+      
+      &::placeholder {
+        transition: all 0.2s ease-in-out;
+        color: #999;
+        font: 18px Helvetica, Arial, sans-serif;
+      }
+      
+      &:focus, &.populated {
+        padding-top: 28px;
+        padding-bottom: 12px;
+        
+        &::placeholder {
+          color: transparent;
+        }
+        
+        & + span {
+          opacity: 1;
+          top: 10px;
+        }
+      }
+    }
+    
+    span {
+      color: #35dc9b;
+      font: 13px Helvetica, Arial, sans-serif;
+      position: absolute;
+      top: 0px;
+      left: 20px;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+  
+  input[type="submit"] {
+    transition: all 0.2s ease-in-out;
+    font: 18px Helvetica, Arial, sans-serif;
+    border: none;
+    background: #1aaf75;
+    color: #fff;
+    padding: 16px 40px;
+    
+    &:hover {
+      background: #109f67;
+    }
+  }
+}
+
+.poll-option-input {
+    padding: 11px;
+    margin-bottom: 11px;
+    width: 360px;
 }
