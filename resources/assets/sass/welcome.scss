@@ -60,56 +60,56 @@
 }
 
 form {
-  display: table;
-  margin: 40px auto;
-  width: 100%;
-  
-  label {
-    position: relative;
-    display: block;
+        display: table;
+        margin: 40px auto;
+        width: 100%;
+        
+        label {
+            position: relative;
+            display: block;
+            
+            input {
+                font: 18px Helvetica, Arial, sans-serif;
+                box-sizing: border-box;
+                display: block;
+                border: none;
+                padding: 20px;
+                width: 100%;
+                margin-bottom: 20px;
+                font-size: 18px;
+                outline: none;
+                transition: all 0.2s ease-in-out;
+                
+                &::placeholder {
+                    transition: all 0.2s ease-in-out;
+                    color: #999;
+                    font: 18px Helvetica, Arial, sans-serif;
+                }
+                
+                &:focus, &.populated {
+                    padding-top: 28px;
+                    padding-bottom: 12px;
+                    
+                    &::placeholder {
+                    color: transparent;
+                    }
+                    
+                    & + span {
+                    opacity: 1;
+                    top: 10px;
+                    }
+                }
+            }
     
-    input {
-      font: 18px Helvetica, Arial, sans-serif;
-      box-sizing: border-box;
-      display: block;
-      border: none;
-      padding: 20px;
-      width: 100%;
-      margin-bottom: 20px;
-      font-size: 18px;
-      outline: none;
-      transition: all 0.2s ease-in-out;
-      
-      &::placeholder {
+        span {
+        color: #35dc9b;
+        font: 13px Helvetica, Arial, sans-serif;
+        position: absolute;
+        top: 0px;
+        left: 20px;
+        opacity: 0;
         transition: all 0.2s ease-in-out;
-        color: #999;
-        font: 18px Helvetica, Arial, sans-serif;
-      }
-      
-      &:focus, &.populated {
-        padding-top: 28px;
-        padding-bottom: 12px;
-        
-        &::placeholder {
-          color: transparent;
         }
-        
-        & + span {
-          opacity: 1;
-          top: 10px;
-        }
-      }
-    }
-    
-    span {
-      color: #35dc9b;
-      font: 13px Helvetica, Arial, sans-serif;
-      position: absolute;
-      top: 0px;
-      left: 20px;
-      opacity: 0;
-      transition: all 0.2s ease-in-out;
-    }
   }
   
   input[type="submit"] {
