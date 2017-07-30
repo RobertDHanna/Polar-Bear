@@ -72,7 +72,7 @@ export default {
                 e.preventDefault();
             }
             var uid = this.nextUid();
-            var input = $.parseHTML('<div class="poll-option-container"><a href="#"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn"></span></a> <label class="poll-option"> <input id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>');
+            var input = $.parseHTML('<div class="poll-option-container"><a href="#"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span></a> <label class="poll-option"> <input id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>');
             if ($('.poll').find('.poll-option-input').length > 0)
             {
                 $('.poll-option-container').last().after(input);
@@ -81,6 +81,7 @@ export default {
             {
                 $('#poll-question').after(input);
             }
+            $('[data-toggle="tooltip"]').tooltip();
         },
         removeOption: function(e) {
             e.stopPropagation();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePromptsTable extends Migration
+class CreateVotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePromptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('prompts', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('survey_id');
-            $table->string('type');
-            $table->text('text');
-            $table->unsignedInteger('position');
+            $table->unsignedInteger('option_id');
+            $table->string('ip_address')->nullable();
+            $table->string('cookie')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreatePromptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prompts');
+        Schema::dropIfExists('votes');
     }
 }

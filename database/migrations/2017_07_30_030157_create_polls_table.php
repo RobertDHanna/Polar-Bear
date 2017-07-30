@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSurveysTable extends Migration
+class CreatePollsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::create('surveys', function (Blueprint $table) {
+        Schema::create('polls', function (Blueprint $table) {
             $table->uuid('id');
             $table->text('title');
-            $table->boolean('locked')->default(false);
-            $table->boolean('expires')->default(false);
-            $table->timestamp('expires_on');
+            $table->string('password')->nullable();
+            $table->timestamp('expires_on')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->timestamps();
+
         });
     }
 
@@ -31,6 +31,6 @@ class CreateSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surveys');
+        Schema::dropIfExists('polls');
     }
 }

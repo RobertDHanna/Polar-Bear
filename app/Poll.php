@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Prompt extends Model
+class Poll extends Model
 {
     //
 }
