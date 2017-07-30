@@ -99,13 +99,13 @@ export default {
             }
             var form = {
                 'question' : $('#poll-question-input').val(),
-                'options' : {}
+                'options' : []
             };
 
             $('.poll-option-input').each(function(i, val) {
-                if ($(val).val().length > 0)
+                if ($(val).val().trim().length > 0)
                 {
-                    form.options[i] = $(val).val();
+                    form.options.push( $(val).val() );
                 }
             });
            

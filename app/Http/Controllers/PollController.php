@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use App\Poll;
+use App\Option;
 
 class PollController extends Controller
 {
@@ -25,7 +28,36 @@ class PollController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->input());
+        $custom_error_message = [
+            'size' => 'The :attribute must have at least one element.',
+            'options.min' => 'There must be at least one :attribute.',
+        ];
+        $validator = Validator::make($request->all(), [
+            'question' => 'required',
+            'options' => 'required|min:1',
+            'options.*' => 'required'
+        ], $custom_error_message);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            return response($errors, 400);
+        }
+
+        $poll = Poll::create([
+            'question' => $request->input('question'),
+        ]);
+
+        foreach ($request->input('options') as $i => $option)
+        {
+            Option::create([
+                'poll_id' => $poll->id,
+                'text' => $option,
+                'position' => $i,
+            ]);
+        }
+
+        return response(['poll' => Poll::find($poll->id) ], 200);
     }
 
     /**
