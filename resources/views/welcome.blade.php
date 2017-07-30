@@ -7,6 +7,8 @@
             <div class="row">
                 <div class="col-md-5 col-md-offset-4">
                     <h1 class="main-header">Create a poll</h1>
+                         {{--  @php $obj = json_decode('[{"a":1,"b":2,"c":3,"d":4,"e":5}]', true);@endphp 
+                        <poll :options='{{ json_encode($obj) }}'></poll>  --}}
                         <poll></poll>
                 </div>
             </div>
