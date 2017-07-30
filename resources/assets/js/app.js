@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('poll', require('./components/Poll.vue'));
+Vue.component('voter', require('./components/Voter.vue'));
 
 const app = new Vue({
     el: '#app'

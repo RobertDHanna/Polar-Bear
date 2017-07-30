@@ -17,7 +17,11 @@ class PollController extends Controller
      */
     public function get($id)
     {
-        dd($id);
+        $poll = Poll::find($id);
+        if (!$poll) {
+            return view('welcome');
+        }
+        return view('vote')->with('poll', $poll->toArray());
     }
 
     /**
