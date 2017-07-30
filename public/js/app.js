@@ -1813,6 +1813,28 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
         nextUid: function nextUid() {
             return this.uid++;
+        },
+        createPoll: function createPoll(e) {
+            var form = {
+                'question': $('#poll-question-input').val(),
+                'options': {}
+            };
+            $('.poll-option-input').each(function (i, val) {
+                form.options[i] = $(val).val();
+            });
+
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/poll',
+                data: form,
+                success: function success(response) {
+                    console.log('success', response);
+                },
+                error: function error(_error) {
+                    console.log('error', _error);
+                }
+            });
         }
     }
 });
@@ -31957,6 +31979,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit",
       "value": "Create Poll"
+    },
+    on: {
+      "click": function($event) {
+        _vm.createPoll($event)
+      }
     }
   })])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31966,6 +31993,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('input', {
     attrs: {
+      "id": "poll-question-input",
       "type": "text",
       "placeholder": "You can type your question here."
     }

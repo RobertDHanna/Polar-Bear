@@ -1,12 +1,12 @@
 <template>
     <form class="poll">
         <label id="poll-question">
-            <input type="text" placeholder="You can type your question here.">
+            <input id="poll-question-input" type="text" placeholder="You can type your question here.">
             <span>Question</span>
         </label>
         
         <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event)">
-        <input type="submit" value="Create Poll">
+        <input type="submit" value="Create Poll" v-on:click="createPoll($event)">
     </form>
 </template>
 
@@ -89,6 +89,28 @@ export default {
         },
         nextUid: function() {
             return this.uid++;
+        },
+        createPoll: function(e) {
+            var form = {
+                'question' : $('#poll-question-input').val(),
+                'options' : {}
+            };
+            $('.poll-option-input').each(function(i, val) {
+                form.options[i] = $(val).val();
+            });
+           
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/poll',
+                data: form,
+                success: function(response) {
+                    console.log('success', response);
+                },
+                error: function(error) {
+                    console.log('error', error);
+                }
+            });
         }
     }
 }

@@ -15,12 +15,13 @@ class CreatePollsTable extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->uuid('id');
-            $table->text('title');
+            $table->text('question');
+            $table->boolean('block_by_ip')->default(false);
+            $table->boolean('block_by_cookie')->default(false);
             $table->string('password')->nullable();
             $table->timestamp('expires_on')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->timestamps();
-
         });
     }
 
