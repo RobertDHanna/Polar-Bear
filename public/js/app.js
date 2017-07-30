@@ -1815,15 +1815,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return this.uid++;
         },
         createPoll: function createPoll(e) {
+            e.preventDefault();
+            if ($('#poll-question-input').val().length === 0) {
+                this.showErrorMessage('Your poll must include a question!');
+                return;
+            }
             var form = {
                 'question': $('#poll-question-input').val(),
                 'options': {}
             };
+
             $('.poll-option-input').each(function (i, val) {
-                form.options[i] = $(val).val();
+                if ($(val).val().length > 0) {
+                    form.options[i] = $(val).val();
+                }
             });
 
-            e.preventDefault();
+            if (Object.keys(form.options).length === 0) {
+                this.showErrorMessage('Your poll must include at least one option!');
+                return;
+            }
+            this.hideErrorMessage();
             $.ajax({
                 type: 'POST',
                 url: '/poll',
@@ -1835,6 +1847,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     console.log('error', _error);
                 }
             });
+        },
+        showErrorMessage: function showErrorMessage(message) {
+            $('#poll-error-message').show();
+            $('#poll-error-message').find('span').html(message);
+        },
+        hideErrorMessage: function hideErrorMessage() {
+            $('#poll-error-message').hide();
         }
     }
 });
