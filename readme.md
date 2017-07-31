@@ -1,3 +1,3 @@
-## About Polar Bear
+## About PollJam
 
 
