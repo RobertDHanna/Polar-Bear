@@ -6,8 +6,8 @@
         </label>
         
         <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
-        <input class="add-option-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
-        <input class="save-draft-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
+        <input class="add-option-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
+        <input class="create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
     </form>
 </template>
 
@@ -23,9 +23,23 @@
     display:none;
 }
 
-.save-draft-btn {
+.create-poll-btn {
     float: right;
     margin-right: 10%;
+    background: white !important;
+    color: #494949 !important;
+    padding: 12px 12px !important;
+}
+
+.create-poll-btn:hover {
+    background: whitesmoke !important;
+}
+@media (max-width: 1145px) {
+    .create-poll-btn {
+        float: none;
+        margin-top: 2%;
+        transition: all 0.2s ease-in-out;
+    }
 }
 </style>
 
@@ -151,11 +165,11 @@ export default {
             });
         },
         showErrorMessage: function(message) {
-            $('#poll-error-message').show();
-            $('#poll-error-message').find('span').html(message);
+            $('#poll-error-message').show('normal');
+            $('#poll-error-message').find('#poll-error-message-text').html(message);
         },
         hideErrorMessage: function() {
-            $('#poll-error-message').hide();
+            $('#poll-error-message').hide('normal');
         }
     }
 }

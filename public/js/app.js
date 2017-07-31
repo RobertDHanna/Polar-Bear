@@ -2044,6 +2044,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2148,11 +2162,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             });
         },
         showErrorMessage: function showErrorMessage(message) {
-            $('#poll-error-message').show();
-            $('#poll-error-message').find('span').html(message);
+            $('#poll-error-message').show('normal');
+            $('#poll-error-message').find('#poll-error-message-text').html(message);
         },
         hideErrorMessage: function hideErrorMessage() {
-            $('#poll-error-message').hide();
+            $('#poll-error-message').hide('normal');
         }
     }
 });
@@ -4650,7 +4664,7 @@ exports.push([module.i, "\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-lef
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.save-draft-btn {\n    float: right;\n    margin-right: 10%;\n}\n", ""]);
+exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    background: white !important;\n    color: #494949 !important;\n    padding: 12px 12px !important;\n}\n.create-poll-btn:hover {\n    background: whitesmoke !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n", ""]);
 
 /***/ }),
 /* 38 */
@@ -32359,7 +32373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "add-option-btn",
     attrs: {
       "type": "submit",
-      "value": "Create Poll"
+      "value": "Save Draft"
     },
     on: {
       "click": function($event) {
@@ -32367,10 +32381,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    staticClass: "save-draft-btn",
+    staticClass: "create-poll-btn",
     attrs: {
       "type": "submit",
-      "value": "Save Draft"
+      "value": "Create Poll"
     },
     on: {
       "click": function($event) {
