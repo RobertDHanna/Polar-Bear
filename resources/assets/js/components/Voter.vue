@@ -1,7 +1,7 @@
 <template>
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading" style="text-align:center;"><h3>{{pollObj.question}}</h3></div>
-        <div class="checkbox-wrapper">
+        <div class="checkbox-wrapper panel-body">
             <div class="checkbox" v-for="item in pollObj.options">
                 <label>
                     <input type="checkbox" value="">
