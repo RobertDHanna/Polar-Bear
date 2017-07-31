@@ -5,8 +5,9 @@
             <span>Question</span>
         </label>
         
-        <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event)">
-        <input type="submit" value="Create Poll" v-on:click="createPoll($event)">
+        <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
+        <input class="add-option-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
+        <input class="save-draft-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
     </form>
 </template>
 
@@ -21,6 +22,11 @@
     color:white;
     display:none;
 }
+
+.save-draft-btn {
+    float: right;
+    margin-right: 10%;
+}
 </style>
 
 
@@ -34,8 +40,10 @@ export default {
         $(document).ready(function() {
             $(document).on('click', function(e) {
                 var element_class = $(e.target).attr('class');
-                if (element_class !== 'poll-option-input' && element_class !== 'remove-option-btn')
+                if (element_class !== 'poll-option-input' && element_class !== 'remove-option-btn' && element_class !== 'add-option-btn')
+                {
                     $('.remove-option-btn').hide();
+                }
             });
             $(document).on('focusin', '.poll-option-input', function() {
                 $('.remove-option-btn').hide();
@@ -43,7 +51,9 @@ export default {
             });
             $(document).on('click', '.remove-option-btn', function(e) {
                 e.stopPropagation();
-                $(this).closest('div').remove();
+                $(this).closest('div').hide('normal', function() {
+                    $(this).closest('div').remove();
+                });
             });
         });
     },
@@ -66,20 +76,33 @@ export default {
                 }
             });
         },
-        addOption: function(e) {
+        addOption: function(e, clicked = false) {
             if (e !== null && e !== undefined)
             {
                 e.preventDefault();
             }
             var uid = this.nextUid();
-            var input = $.parseHTML('<div class="poll-option-container"><a href="#"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span></a> <label class="poll-option"> <input id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>');
+            var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
             if ($('.poll').find('.poll-option-input').length > 0)
             {
-                $('.poll-option-container').last().after(input);
+                $('.poll-option-container').last().after(element);
+                if (clicked) 
+                {
+                    $('.poll-option-container').last().find('.poll-option-input').focus();
+                }
             }
             else
             {
-                $('#poll-question').after(input);
+                $('#poll-question').after(element);
+            }
+            if (clicked)
+            {
+                element.show('normal');
+                element.find('.poll-option-input').focus();
+            }
+            else
+            {
+                element.show('slow');
             }
             $('[data-toggle="tooltip"]').tooltip();
         },
