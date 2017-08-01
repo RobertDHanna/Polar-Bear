@@ -50,6 +50,7 @@ export default {
     props: ['question', 'options'],
     created: function() {
         this.uid = 1;
+        this.canCreatePoll = true;
         this.generateForm();
         $(document).ready(function() {
             $(document).on('click', function(e) {
@@ -129,6 +130,13 @@ export default {
         },
         createPoll: function(e) {
             e.preventDefault();
+
+            if (!this.canCreatePoll) {
+                this.showErrorMessage('Your poll has already been created!');
+                return;
+            }
+
+            this.hideMessages();
             if ($('#poll-question-input').val().length === 0)
             {
                 this.showErrorMessage('Your poll must include a question!');
@@ -146,18 +154,23 @@ export default {
                 }
             });
            
-            if (Object.keys(form.options).length === 0)
+            if (Object.keys(form.options).length < 2)
             {
-                this.showErrorMessage('Your poll must include at least one option!');
+                this.showErrorMessage('Your poll must include at least <strong>two</strong> options!');
                 return;
             }
-            this.hideErrorMessage()
+            this.showLoadingGif();
+            var _this = this;
             $.ajax({
                 type: 'POST',
                 url: '/poll',
                 data: form,
                 success: function(response) {
                     console.log('success', response);
+                    window.location = response.poll.poll_url;
+                    // _this.canCreatePoll = false;
+                    // _this.hideLoadingGif();
+                    // _this.showInfoMessage('Your unique poll url is <strong><a href="'+ response.poll.poll_url +'">' + response.poll.poll_url + '</a></strong>');
                 },
                 error: function(error) {
                     console.log('error', error);
@@ -165,11 +178,23 @@ export default {
             });
         },
         showErrorMessage: function(message) {
-            $('#poll-error-message').show('normal');
             $('#poll-error-message').find('#poll-error-message-text').html(message);
+            $('#poll-error-message').show('normal');
         },
-        hideErrorMessage: function() {
+        showInfoMessage: function(message) {
+            $('#poll-info-message').find('#poll-info-message-text').html(message);
+            $('#poll-info-message').show('normal');
+        },
+        showLoadingGif: function() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function() {
+            $('#poll-loading-wedge').hide('fast');
+        },
+        hideMessages: function() {
             $('#poll-error-message').hide('normal');
+            $('#poll-info-message').hide('normal');
         }
     }
 }

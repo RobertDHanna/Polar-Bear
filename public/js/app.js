@@ -2063,6 +2063,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     props: ['question', 'options'],
     created: function created() {
         this.uid = 1;
+        this.canCreatePoll = true;
         this.generateForm();
         $(document).ready(function () {
             $(document).on('click', function (e) {
@@ -2129,6 +2130,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
         createPoll: function createPoll(e) {
             e.preventDefault();
+
+            if (!this.canCreatePoll) {
+                this.showErrorMessage('Your poll has already been created!');
+                return;
+            }
+
+            this.hideMessages();
             if ($('#poll-question-input').val().length === 0) {
                 this.showErrorMessage('Your poll must include a question!');
                 return;
@@ -2144,17 +2152,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             });
 
-            if (Object.keys(form.options).length === 0) {
-                this.showErrorMessage('Your poll must include at least one option!');
+            if (Object.keys(form.options).length < 2) {
+                this.showErrorMessage('Your poll must include at least <strong>two</strong> options!');
                 return;
             }
-            this.hideErrorMessage();
+            this.showLoadingGif();
+            var _this = this;
             $.ajax({
                 type: 'POST',
                 url: '/poll',
                 data: form,
                 success: function success(response) {
                     console.log('success', response);
+                    window.location = response.poll.poll_url;
+                    // _this.canCreatePoll = false;
+                    // _this.hideLoadingGif();
+                    // _this.showInfoMessage('Your unique poll url is <strong><a href="'+ response.poll.poll_url +'">' + response.poll.poll_url + '</a></strong>');
                 },
                 error: function error(_error) {
                     console.log('error', _error);
@@ -2162,11 +2175,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             });
         },
         showErrorMessage: function showErrorMessage(message) {
-            $('#poll-error-message').show('normal');
             $('#poll-error-message').find('#poll-error-message-text').html(message);
+            $('#poll-error-message').show('normal');
         },
-        hideErrorMessage: function hideErrorMessage() {
+        showInfoMessage: function showInfoMessage(message) {
+            $('#poll-info-message').find('#poll-info-message-text').html(message);
+            $('#poll-info-message').show('normal');
+        },
+        showLoadingGif: function showLoadingGif() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function hideLoadingGif() {
+            $('#poll-loading-wedge').hide('fast');
+        },
+        hideMessages: function hideMessages() {
             $('#poll-error-message').hide('normal');
+            $('#poll-info-message').hide('normal');
         }
     }
 });
@@ -2198,16 +2223,95 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
     created: function created() {
-        console.log(JSON.parse(this.poll));
+        $(document).ready(function () {
+            $('input:checkbox').change(function () {
+                if ($(this).is(':checked')) {
+                    $('input:checkbox').prop('checked', false);
+                    $(this).prop('checked', true);
+                }
+            });
+        });
     },
     data: function data() {
         return {
             pollObj: JSON.parse(this.poll)
         };
+    },
+    methods: {
+        vote: function vote() {
+            if ($(":checkbox:checked").length === 0) {
+                this.showErrorMessage('You must select an option in order to vote!');
+            }
+        },
+        showErrorMessage: function showErrorMessage(message) {
+            $('#poll-error-message').find('#poll-error-message-text').html(message);
+            $('#poll-error-message').show('normal');
+        }
     }
 });
 
@@ -4657,7 +4761,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n", ""]);
+exports.push([module.i, "\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 37 */
@@ -32332,7 +32436,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('h3', [_vm._v(_vm._s(_vm.pollObj.question))])]), _vm._v(" "), _c('div', {
     staticClass: "checkbox-wrapper panel-body"
-  }, _vm._l((_vm.pollObj.options), function(item) {
+  }, [_vm._l((_vm.pollObj.options), function(item) {
     return _c('div', {
       staticClass: "checkbox"
     }, [_c('label', [_c('input', {
@@ -32340,9 +32444,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "checkbox",
         "value": ""
       }
-    }), _vm._v("\n                    " + _vm._s(item.text) + "   \n                ")])])
-  }))])
-},staticRenderFns: []}
+    }), _vm._v(" "), _vm._m(0, true), _vm._v("\n                    " + _vm._s(item.text) + "   \n                ")])])
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    staticStyle: {
+      "float": "right",
+      "font-size": "22px"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.vote($event)
+      }
+    }
+  }, [_vm._v("Vote")])], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "cr"
+  }, [_c('i', {
+    staticClass: "cr-icon glyphicon glyphicon-ok"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

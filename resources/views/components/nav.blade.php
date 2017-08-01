@@ -12,7 +12,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Polar Bear
+                        Poll Jam
                     </a>
                 </div>
 
