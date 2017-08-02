@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 56);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -374,6 +374,63 @@ module.exports = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+// this module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,64 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ }),
 /* 3 */
@@ -870,7 +870,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(49)
+var listToStyles = __webpack_require__(53)
 
 /*
 type StyleObject = {
@@ -1109,9 +1109,9 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(34);
+__webpack_require__(35);
 
-window.Vue = __webpack_require__(50);
+window.Vue = __webpack_require__(54);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -1119,9 +1119,11 @@ window.Vue = __webpack_require__(50);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(41));
-Vue.component('poll', __webpack_require__(42));
-Vue.component('voter', __webpack_require__(43));
+Vue.component('example', __webpack_require__(42));
+Vue.component('poll', __webpack_require__(44));
+Vue.component('voter', __webpack_require__(46));
+Vue.component('hat', __webpack_require__(43));
+Vue.component('result', __webpack_require__(45));
 
 var app = new Vue({
   el: '#app'
@@ -1149,7 +1151,7 @@ module.exports = __webpack_require__(14);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
 var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Create an instance of Axios
@@ -1269,7 +1271,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(17);
 var dispatchRequest = __webpack_require__(18);
@@ -1423,7 +1425,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(21);
 var isCancel = __webpack_require__(5);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -2009,6 +2011,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['loading_gif_url']
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 //
@@ -2197,7 +2222,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2288,6 +2313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
     created: function created() {
+        console.log(JSON.parse(this.poll));
         $(document).ready(function () {
             $('input:checkbox').change(function () {
                 if ($(this).is(':checked')) {
@@ -2299,28 +2325,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            pollObj: JSON.parse(this.poll)
+            poll_obj: JSON.parse(this.poll)
         };
     },
     methods: {
         vote: function vote() {
+            this.hideMessages();
             if ($(":checkbox:checked").length === 0) {
                 this.showErrorMessage('You must select an option in order to vote!');
+                return;
             }
+
+            var form = {};
+            form.poll_id = this.poll_obj.id;
+            form.selection = [];
+            $.each($('input:checkbox:checked'), function (i, element) {
+                form.selection.push($(element).val());
+            });
+
+            this.showLoadingGif();
+            $.ajax({
+                type: 'POST',
+                url: '/vote',
+                data: form,
+                success: function success(response) {
+                    console.log('success', response);
+                },
+                error: function error(_error) {
+                    console.log('error', _error);
+                }
+            });
         },
         showErrorMessage: function showErrorMessage(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);
             $('#poll-error-message').show('normal');
+        },
+        hideMessages: function hideMessages() {
+            $('#poll-error-message').hide('normal');
+            $('#poll-info-message').hide('normal');
+        },
+        showLoadingGif: function showLoadingGif() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function hideLoadingGif() {
+            $('#poll-loading-wedge').hide('fast');
         }
     }
 });
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(39);
+window._ = __webpack_require__(40);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2329,9 +2388,9 @@ window._ = __webpack_require__(39);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(38);
+  window.$ = window.jQuery = __webpack_require__(39);
 
-  __webpack_require__(35);
+  __webpack_require__(36);
 } catch (e) {}
 
 /**
@@ -2374,7 +2433,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4757,21 +4816,21 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    background: white !important;\n    color: #494949 !important;\n    padding: 12px 12px !important;\n}\n.create-poll-btn:hover {\n    background: whitesmoke !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n", ""]);
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15031,7 +15090,7 @@ return jQuery;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32120,10 +32179,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(51)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(55)(module)))
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -32313,14 +32372,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(50),
   /* scopeId */
   null,
   /* cssModules */
@@ -32347,18 +32406,52 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(32),
+  /* template */
+  __webpack_require__(48),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Hat.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Hat.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2f1e1b74", Component.options)
+  } else {
+    hotAPI.reload("data-v-2f1e1b74", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(48)
+__webpack_require__(52)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(33),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(49),
   /* scopeId */
   null,
   /* cssModules */
@@ -32385,18 +32478,38 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  null,
+  /* template */
+  null,
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Result.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(47)
+__webpack_require__(51)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(47),
   /* scopeId */
   "data-v-0795c8e1",
   /* cssModules */
@@ -32423,7 +32536,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32434,17 +32547,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_c('h3', [_vm._v(_vm._s(_vm.pollObj.question))])]), _vm._v(" "), _c('div', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.poll_obj.question))])]), _vm._v(" "), _c('div', {
     staticClass: "checkbox-wrapper panel-body"
-  }, [_vm._l((_vm.pollObj.options), function(item) {
+  }, [_vm._l((_vm.poll_obj.options), function(item) {
     return _c('div', {
-      staticClass: "checkbox"
+      key: item.id,
+      staticClass: "checkbox",
+      attrs: {
+        "item": item
+      }
     }, [_c('label', [_c('input', {
       attrs: {
-        "type": "checkbox",
-        "value": ""
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": item.id
       }
-    }), _vm._v(" "), _vm._m(0, true), _vm._v("\n                    " + _vm._s(item.text) + "   \n                ")])])
+    }), _vm._v(" "), _vm._m(0, true), _vm._v("\n                    " + _vm._s(item.text) + "\n                ")])])
   }), _vm._v(" "), _c('button', {
     staticClass: "btn btn-success",
     staticStyle: {
@@ -32476,7 +32595,63 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('img', {
+    staticStyle: {
+      "display": "none",
+      "margin": "auto",
+      "width": "25%"
+    },
+    attrs: {
+      "id": "poll-loading-wedge",
+      "src": _vm.loading_gif_url
+    }
+  })])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none",
+      "font-size": "16px"
+    },
+    attrs: {
+      "id": "poll-error-message",
+      "role": "alert"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "poll-error-message-text"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "alert alert-info",
+    staticStyle: {
+      "display": "none",
+      "font-size": "16px"
+    },
+    attrs: {
+      "id": "poll-info-message"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "poll-info-message-text"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2f1e1b74", module.exports)
+  }
+}
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32538,7 +32713,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32567,13 +32742,13 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(36);
+var content = __webpack_require__(37);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32593,13 +32768,13 @@ if(false) {
 }
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(37);
+var content = __webpack_require__(38);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32619,7 +32794,7 @@ if(false) {
 }
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports) {
 
 /**
@@ -32652,7 +32827,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42747,7 +42922,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42775,7 +42950,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);

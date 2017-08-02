@@ -15,7 +15,9 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('poll_id');
             $table->unsignedInteger('option_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->string('ip_address')->nullable();
             $table->string('cookie')->nullable();
             $table->timestamps();

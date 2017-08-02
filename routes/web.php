@@ -21,5 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Polls
 Route::get('/poll/{id}', 'PollController@get');
+Route::get('/poll/{poll_id}/results', 'VoteController@getResultsView')->name('poll-results');
 Route::post('/poll', 'PollController@store');
 Route::put('/poll', 'PollController@edit');
+
+// Votes
+Route::post('/vote', 'VoteController@processVote');

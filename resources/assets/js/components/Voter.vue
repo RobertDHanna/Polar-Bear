@@ -1,12 +1,12 @@
 <template>
     <div class="panel panel-default">
-        <div class="panel-heading" style="text-align:center;"><h3>{{pollObj.question}}</h3></div>
+        <div class="panel-heading" style="text-align:center;"><h3>{{poll_obj.question}}</h3></div>
         <div class="checkbox-wrapper panel-body">
-            <div class="checkbox" v-for="item in pollObj.options">
+            <div class="checkbox" v-for="item in poll_obj.options" v-bind:key="item.id" v-bind:item="item">
                 <label>
-                    <input type="checkbox" value="">
+                    <input type="checkbox" :value="item.id">
                     <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        {{item.text}}   
+                        {{item.text}}
                     </label>
             </div>
             <button type="button" class="btn btn-success" style="float:right;font-size: 22px;" v-on:click="vote($event)">Vote</button>
@@ -84,6 +84,7 @@
 export default {
     props: ['poll'],
     created: function() {
+        console.log(JSON.parse(this.poll));
         $(document).ready(function() {
             $('input:checkbox').change(function() {
                 if ($(this).is(':checked')) {
@@ -95,19 +96,52 @@ export default {
     },
     data: function() {
         return {
-            pollObj: JSON.parse(this.poll)
+            poll_obj: JSON.parse(this.poll)
         };
     },
     methods: {
         vote: function() {
+            this.hideMessages();
             if ($(":checkbox:checked").length === 0)
             {
                 this.showErrorMessage('You must select an option in order to vote!');
+                return;
             }
+
+            var form = {};
+            form.poll_id = this.poll_obj.id;
+            form.selection = [];
+            $.each($('input:checkbox:checked'), function(i, element) {
+                form.selection.push( $(element).val() );
+            });
+            
+            this.showLoadingGif();
+            $.ajax({
+                type: 'POST',
+                url: '/vote',
+                data: form,
+                success: function(response) {
+                    console.log('success', response);
+                },
+                error: function(error) {
+                    console.log('error', error);
+                }
+            });
         },
         showErrorMessage: function(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);
             $('#poll-error-message').show('normal');
+        },
+        hideMessages: function() {
+            $('#poll-error-message').hide('normal');
+            $('#poll-info-message').hide('normal');
+        },
+        showLoadingGif: function() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function() {
+            $('#poll-loading-wedge').hide('fast');
         },
     }
 }
