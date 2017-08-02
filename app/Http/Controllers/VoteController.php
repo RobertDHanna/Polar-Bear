@@ -40,12 +40,12 @@ class VoteController extends Controller
             ]);
         }
 
-        return response(['message' => 'Vote(s) have been cast.', 200]);
+        return response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => $poll->id]), 200]);
     }
 
     public function getResultsView($id)
     {
-        return view('results')->with('results', $this->getResults($id));
+        return view('results')->with('poll', $this->getResults($id));
     }
 
     public function getResults($id)

@@ -26,13 +26,7 @@
 .create-poll-btn {
     float: right;
     margin-right: 10%;
-    background: white !important;
-    color: #494949 !important;
     padding: 12px 12px !important;
-}
-
-.create-poll-btn:hover {
-    background: whitesmoke !important;
 }
 @media (max-width: 1145px) {
     .create-poll-btn {

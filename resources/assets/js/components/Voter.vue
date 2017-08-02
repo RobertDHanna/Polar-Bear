@@ -15,6 +15,10 @@
 </template>
 
 <style scoped>
+button {
+    background: #22c385;
+    border: none;
+}
 .checkbox-wrapper {
     padding-left: 4%;
     font-size: 16px;
@@ -122,6 +126,7 @@ export default {
                 data: form,
                 success: function(response) {
                     console.log('success', response);
+                    window.location = response.result_url;
                 },
                 error: function(error) {
                     console.log('error', error);

@@ -1,5 +1,5 @@
 .navbar-default {
-    background-color: #35dc9b;
+    background-color: #00BFFF;
     border-color: transparent;
 }
 
@@ -16,14 +16,14 @@
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-    background-color: #35dc9b;
+    background-color: #00BFFF;
 }
 
 #app {
     min-height: 100vh;
     height: 100%;
     padding-bottom:40px;
-    background-color: #35dc9b;
+    background-color: #00BFFF;
 }
 
 .poll-main-body {
@@ -117,7 +117,8 @@ form {
     transition: all 0.2s ease-in-out;
     font: 18px Helvetica, Arial, sans-serif;
     border: none;
-    background: #1aaf75;
+    // background: #35dc9b;
+    background: #26d994;
     color: #fff;
     padding: 12px 12px;
     border-radius: 4px;

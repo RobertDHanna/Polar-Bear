@@ -2077,12 +2077,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2309,6 +2303,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
@@ -2350,6 +2348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data: form,
                 success: function success(response) {
                     console.log('success', response);
+                    window.location = response.result_url;
                 },
                 error: function error(_error) {
                     console.log('error', _error);
@@ -4820,14 +4819,14 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-0795c8e1] {\n    background: #22c385;\n    border: none;\n}\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    background: white !important;\n    color: #494949 !important;\n    padding: 12px 12px !important;\n}\n.create-poll-btn:hover {\n    background: whitesmoke !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n", ""]);
+exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n", ""]);
 
 /***/ }),
 /* 39 */
@@ -32481,18 +32480,36 @@ module.exports = Component.exports
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(69)
+
 var Component = __webpack_require__(1)(
   /* script */
-  null,
+  __webpack_require__(64),
   /* template */
-  null,
+  __webpack_require__(66),
   /* scopeId */
-  null,
+  "data-v-2f5064d4",
   /* cssModules */
   null
 )
 Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Result.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Result.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2f5064d4", Component.options)
+  } else {
+    hotAPI.reload("data-v-2f5064d4", Component.options)
+  }
+})()}
 
 module.exports = Component.exports
 
@@ -42956,6 +42973,181 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['poll'],
+    created: function created() {
+        this.progressColorClasses = ['progress-bar-success', 'progress-bar-info', 'progress-bar-warning', 'progress-bar-danger'];
+        this.progressColorClassIndex = 0;
+        console.log(JSON.parse(this.poll));
+    },
+    data: function data() {
+        return {
+            poll_obj: JSON.parse(this.poll)
+        };
+    },
+    methods: {
+        computePercent: function computePercent(num_votes) {
+            return parseInt(num_votes / this.poll_obj.total_votes * 100);
+        },
+        getNextProgressBarColor: function getNextProgressBarColor() {
+            console.log(this.progressColorClasses, this.progressColorClassIndex);
+            if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {
+                this.progressColorClassIndex = 0;
+            }
+            return this.progressColorClasses[this.progressColorClassIndex++];
+        }
+    }
+});
+
+/***/ }),
+/* 65 */,
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading",
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('h3', [_vm._v(_vm._s(_vm.poll_obj.question))])]), _vm._v(" "), _c('div', {
+    staticClass: "checkbox-wrapper panel-body"
+  }, _vm._l((_vm.poll_obj.options), function(item) {
+    return _c('div', {
+      key: item.id,
+      attrs: {
+        "item": item
+      }
+    }, [_c('div', {
+      staticClass: "well"
+    }, [_vm._v(_vm._s(item.text))]), _vm._v(" "), _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-xs-6"
+    }, [_vm._v("\n                      " + _vm._s(_vm.computePercent(item.vote_num)) + "%\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "col-xs-6"
+    }, [_c('span', {
+      staticClass: "votes-text"
+    }, [_vm._v(_vm._s(item.vote_num) + " Votes")])])]), _vm._v(" "), _c('div', {
+      staticClass: "progress"
+    }, [_c('div', {
+      staticClass: "progress-bar",
+      class: _vm.getNextProgressBarColor(),
+      staticStyle: {
+        "width": "40%"
+      },
+      style: ({
+        width: _vm.computePercent(item.vote_num) + '%'
+      }),
+      attrs: {
+        "role": "progressbar",
+        "aria-valuenow": "40",
+        "aria-valuemin": "0",
+        "aria-valuemax": "100"
+      }
+    }, [_c('span', {
+      staticClass: "sr-only"
+    }, [_vm._v("40% Complete (success)")])])]), _vm._v(" "), _c('hr')])
+  }))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2f5064d4", module.exports)
+  }
+}
+
+/***/ }),
+/* 67 */,
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(8)();
+exports.push([module.i, "\n.progress[data-v-2f5064d4] {\n    width: 100%;\n}\n.row[data-v-2f5064d4] {\n    margin-bottom: 2%;\n}\n.votes-text[data-v-2f5064d4] {\n    float:right;\n}\n", ""]);
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(68);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(9)("3710e172", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2f5064d4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Result.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2f5064d4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Result.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
