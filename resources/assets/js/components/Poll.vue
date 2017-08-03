@@ -4,21 +4,27 @@
             <input id="poll-question-input" type="text" placeholder="You can type your question here.">
             <span>Question</span>
         </label>
+        <select id="dup-check" class="selectpicker">
+            <option value="none">Don't Check Duplicates</option>
+            <option value="cookie">Filter By Cookie</option>
+            <option value="ip">Filter By IP Address</option>
+        </select>
+
         <div class="checkbox-wrapper">
-        <div class="checkbox-poll-option checkbox">
-            <label>
-                <input id="p-use-captcha" type="checkbox" value="">
-                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                <div style="margin-left: 45px; color:white;">Spam Protection</div>
-            </label>
-        </div>
-        <div class="checkbox-poll-option checkbox">
-            <label>
-                <input type="checkbox" value="yes">
-                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                <div style="margin-left: 45px; color:white;">Check All That Apply</div>
-            </label>
-        </div>
+            <div class="checkbox-poll-option checkbox">
+                <label>
+                    <input id="p-use-captcha" type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    <div style="margin-left: 45px; color:white;">Spam Protection</div>
+                </label>
+            </div>
+            <div class="checkbox-poll-option checkbox">
+                <label>
+                    <input id="multiple-choice" type="checkbox" value="yes">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    <div style="margin-left: 45px; color:white;">Check All That Apply</div>
+                </label>
+            </div>
         </div>
         
         <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
@@ -232,6 +238,8 @@ export default {
                 'question' : $('#poll-question-input').val(),
                 'options' : [],
                 'captcha' : $('#p-use-captcha').prop('checked'),
+                'multiple_choice': $('#multiple-choice').prop('checked'),
+                'dup_check': $('#dup-check').val(),
             };
 
             $('.poll-option-input').each(function(i, val) {

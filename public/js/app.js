@@ -2169,6 +2169,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2255,7 +2261,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var form = {
                 'question': $('#poll-question-input').val(),
                 'options': [],
-                'captcha': $('#p-use-captcha').prop('checked')
+                'captcha': $('#p-use-captcha').prop('checked'),
+                'multiple_choice': $('#multiple-choice').prop('checked'),
+                'dup_check': $('#dup-check').val()
             };
 
             $('.poll-option-input').each(function (i, val) {
@@ -2495,14 +2503,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
     created: function created() {
-        console.log(JSON.parse(this.poll));
+        var _this = this;
         $(document).ready(function () {
-            $('input:checkbox').change(function () {
-                if ($(this).is(':checked')) {
-                    $('input:checkbox').prop('checked', false);
-                    $(this).prop('checked', true);
-                }
-            });
+            if (!_this.poll_obj.multiple_choice) {
+                $('input:checkbox').change(function () {
+                    if ($(this).is(':checked')) {
+                        $('input:checkbox').prop('checked', false);
+                        $(this).prop('checked', true);
+                    }
+                });
+            }
         });
     },
     data: function data() {
@@ -32978,7 +32988,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
     staticClass: "poll"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('input', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('input', {
     staticClass: "add-option-btn",
     attrs: {
       "type": "submit",
@@ -33025,6 +33035,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('span', [_vm._v("Question")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('select', {
+    staticClass: "selectpicker",
+    attrs: {
+      "id": "dup-check"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "none"
+    }
+  }, [_vm._v("Don't Check Duplicates")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "cookie"
+    }
+  }, [_vm._v("Filter By Cookie")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ip"
+    }
+  }, [_vm._v("Filter By IP Address")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "checkbox-wrapper"
   }, [_c('div', {
@@ -33048,6 +33077,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "checkbox-poll-option checkbox"
   }, [_c('label', [_c('input', {
     attrs: {
+      "id": "multiple-choice",
       "type": "checkbox",
       "value": "yes"
     }

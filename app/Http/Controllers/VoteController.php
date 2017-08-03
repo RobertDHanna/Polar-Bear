@@ -48,6 +48,39 @@ class VoteController extends Controller
         {
             return response(['message' => 'This poll is not multiple choice.'], 400);
         }
+
+
+        $ip = null;
+        $cookie = null;
+        if ($poll->block_by_cookie)
+        {
+            // get votes by poll id & user cookie
+            // if exist they already voted on this poll.
+            if ($request->cookie('polljam-c'))
+            {
+                $num = Vote::where('poll_id', '=', $poll->id)->where('cookie', '=', $request->cookie('polljam-c'))->count();
+                if ($num > 0)
+                {
+                    return response(['message' => 'You have already voted on this poll!'], 400);
+                }
+            }
+            else
+            {
+                $cookie = uniqid();
+            }
+        }
+
+        if ($poll->block_by_ip)
+        {
+            $ip = \Request::ip();
+            // get votes by poll id & user ip
+            // if exist they already voted on this poll.
+            $num = Vote::where('poll_id', '=', $poll->id)->where('ip_address', '=', $ip)->count();
+            if ($num > 0)
+            {
+                return response(['message' => 'You have already voted on this poll!'], 400);
+            }
+        }
         
         foreach ($request->input('selection') as $option_id)
         {
@@ -56,10 +89,18 @@ class VoteController extends Controller
             Vote::create([
                 'poll_id' => $poll->id,
                 'option_id' => $option_id,
+                'ip_address' => $ip,
+                'cookie' => $cookie,
             ]);
         }
 
-        return response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => $poll->id]), 200]);
+        $response = response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => $poll->id]), 200]);
+
+        if ($cookie)
+        {
+            $response->withCookie(cookie()->forever('polljam-c', $cookie));
+        }
+        return $response;
     }
 
     public function getResultsView($id)

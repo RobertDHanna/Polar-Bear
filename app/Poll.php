@@ -8,7 +8,7 @@ use App\Util\LoaderQuery;
 
 class Poll extends Model
 {
-    protected $fillable = ['question', 'captcha'];
+    protected $fillable = ['question', 'captcha', 'multiple_choice', 'block_by_ip', 'block_by_cookie'];
     protected $appends = ['options', 'poll_url', 'total_votes'];
     protected $hidden = ['owner_id', 'password'];
 

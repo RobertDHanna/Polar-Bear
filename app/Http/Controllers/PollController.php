@@ -32,6 +32,9 @@ class PollController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+        * Validate the request.
+        */
         $custom_error_message = [
             'size' => 'The :attribute must have at least one element.',
             'options.min' => 'There must be at least one :attribute.',
@@ -40,7 +43,6 @@ class PollController extends Controller
             'question' => 'required',
             'options' => 'required|min:1',
             'options.*' => 'required',
-            'captcha' => 'required'
         ], $custom_error_message);
 
         if ($validator->fails())
@@ -49,11 +51,32 @@ class PollController extends Controller
             return response($errors, 400);
         }
 
-        $poll = Poll::create([
+        /**
+        * Construct the poll body.
+        */
+        $poll_body = [
             'question' => $request->input('question'),
-            'captcha' => $request->input('captcha'),
-        ]);
+            'captcha' => $request->input('captcha') ?: false,
+            'multiple_choice' => $request->input('multiple_choice') ?: false,
+        ];
 
+        /**
+        * Set duplicate checking prefs.
+        */
+        if ($request->input('dup_check') === 'cookie')
+        {
+            $poll_body['block_by_cookie'] = true;
+        }
+        else if ($request->input('dup_check') === 'ip')
+        {
+            $poll_body['block_by_ip'] = true;
+        }
+
+        $poll = Poll::create($poll_body);
+
+        /**
+        * Add options.
+        */
         foreach ($request->input('options') as $i => $option)
         {
             Option::create([
@@ -62,7 +85,7 @@ class PollController extends Controller
                 'position' => $i,
             ]);
         }
-
+        
         return response(['poll' => Poll::find($poll->id) ], 200);
     }
 

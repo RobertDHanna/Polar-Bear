@@ -98,14 +98,17 @@ button {
 export default {
     props: ['poll'],
     created: function() {
-        console.log(JSON.parse(this.poll));
+        var _this = this;
         $(document).ready(function() {
-            $('input:checkbox').change(function() {
-                if ($(this).is(':checked')) {
-                    $('input:checkbox').prop('checked', false);
-                    $(this).prop('checked', true);
-                }
-            });
+            if (!_this.poll_obj.multiple_choice)
+            {
+                $('input:checkbox').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('input:checkbox').prop('checked', false);
+                        $(this).prop('checked', true);
+                    }
+                });
+            }
         });
     },
     data: function() {
