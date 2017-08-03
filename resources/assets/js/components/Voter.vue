@@ -6,8 +6,8 @@
                 <label>
                     <input type="checkbox" :value="item.id">
                     <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        {{item.text}}
-                    </label>
+                    <div style="margin-left: 30px;">{{item.text}}</div>
+                </label>
             </div>
             <button type="button" class="btn btn-success" style="float:right;font-size: 22px;" v-on:click="vote($event)">Vote</button>
         </div>

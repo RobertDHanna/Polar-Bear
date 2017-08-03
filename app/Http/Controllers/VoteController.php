@@ -45,7 +45,8 @@ class VoteController extends Controller
 
     public function getResultsView($id)
     {
-        return view('results')->with('poll', $this->getResults($id));
+        $poll = $this->getResults($id);
+        return !is_null($poll) ? view('results')->with('poll', $poll) : redirect('/');
     }
 
     public function getResults($id)
