@@ -7,7 +7,7 @@
         <div class="checkbox-wrapper">
         <div class="checkbox-poll-option checkbox">
             <label>
-                <input type="checkbox" value="yes">
+                <input id="p-use-captcha" type="checkbox" value="">
                 <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
                 <div style="margin-left: 45px; color:white;">Spam Protection</div>
             </label>
@@ -230,7 +230,8 @@ export default {
             }
             var form = {
                 'question' : $('#poll-question-input').val(),
-                'options' : []
+                'options' : [],
+                'captcha' : $('#p-use-captcha').prop('checked'),
             };
 
             $('.poll-option-input').each(function(i, val) {
@@ -253,10 +254,8 @@ export default {
                 data: form,
                 success: function(response) {
                     console.log('success', response);
+                    _this.hideLoadingGif();
                     window.location = response.poll.poll_url;
-                    // _this.canCreatePoll = false;
-                    // _this.hideLoadingGif();
-                    // _this.showInfoMessage('Your unique poll url is <strong><a href="'+ response.poll.poll_url +'">' + response.poll.poll_url + '</a></strong>');
                 },
                 error: function(error) {
                     console.log('error', error);
@@ -275,8 +274,8 @@ export default {
             $('#poll-loading-wedge').css('display', 'block').hide();
             $('#poll-loading-wedge').show('fast');
         },
-        hideLoadingGif: function() {
-            $('#poll-loading-wedge').hide('fast');
+        hideLoadingGif: function(timeout = 0) {
+            setTimeout(function() {$('#poll-loading-wedge').hide('fast');},timeout);
         },
         hideMessages: function() {
             $('#poll-error-message').hide('normal');

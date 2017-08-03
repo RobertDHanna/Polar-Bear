@@ -7,6 +7,7 @@ use Validator;
 use App\Poll;
 use App\Option;
 use App\Vote;
+use App\Util\Sentinel;
 
 class VoteController extends Controller
 {
@@ -24,6 +25,24 @@ class VoteController extends Controller
         }
 
         $poll = Poll::find($request->input('poll_id'));
+
+
+        if ($poll->captcha)
+        {
+            if (!$request->has('g_recaptcha_response'))
+            {
+                return response(['message' => 'Your captcha was not verified, please try again.'], 400);
+            }
+            $guard = new Sentinel();
+            $success = $guard->verifyCaptcha([
+                'response' => $request->input('g_recaptcha_response'),
+            ]);
+
+            if (!$success)
+            {
+                return response(['message' => 'Your captcha was not verified, please try again.'], 400);
+            }
+        }
 
         if (count($request->input('selection')) > 1 && !$poll->multiple_choice)
         {

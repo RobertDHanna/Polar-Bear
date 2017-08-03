@@ -39,7 +39,8 @@ class PollController extends Controller
         $validator = Validator::make($request->all(), [
             'question' => 'required',
             'options' => 'required|min:1',
-            'options.*' => 'required'
+            'options.*' => 'required',
+            'captcha' => 'required'
         ], $custom_error_message);
 
         if ($validator->fails())
@@ -50,6 +51,7 @@ class PollController extends Controller
 
         $poll = Poll::create([
             'question' => $request->input('question'),
+            'captcha' => $request->input('captcha'),
         ]);
 
         foreach ($request->input('options') as $i => $option)

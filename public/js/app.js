@@ -2254,7 +2254,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
             var form = {
                 'question': $('#poll-question-input').val(),
-                'options': []
+                'options': [],
+                'captcha': $('#p-use-captcha').prop('checked')
             };
 
             $('.poll-option-input').each(function (i, val) {
@@ -2275,10 +2276,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 data: form,
                 success: function success(response) {
                     console.log('success', response);
+                    _this.hideLoadingGif();
                     window.location = response.poll.poll_url;
-                    // _this.canCreatePoll = false;
-                    // _this.hideLoadingGif();
-                    // _this.showInfoMessage('Your unique poll url is <strong><a href="'+ response.poll.poll_url +'">' + response.poll.poll_url + '</a></strong>');
                 },
                 error: function error(_error) {
                     console.log('error', _error);
@@ -2298,7 +2297,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             $('#poll-loading-wedge').show('fast');
         },
         hideLoadingGif: function hideLoadingGif() {
-            $('#poll-loading-wedge').hide('fast');
+            var timeout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+            setTimeout(function () {
+                $('#poll-loading-wedge').hide('fast');
+            }, timeout);
         },
         hideMessages: function hideMessages() {
             $('#poll-error-message').hide('normal');
@@ -2478,6 +2481,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
@@ -2512,17 +2525,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 form.selection.push($(element).val());
             });
 
+            if (this.poll_obj.captcha) {
+                form.g_recaptcha_response = $('#g-recaptcha-response').val();
+            }
+
             this.showLoadingGif();
+
+            var _this = this;
             $.ajax({
                 type: 'POST',
                 url: '/vote',
                 data: form,
                 success: function success(response) {
                     console.log('success', response);
+                    _this.hideLoadingGif(1000);
                     window.location = response.result_url;
                 },
                 error: function error(_error) {
                     console.log('error', _error);
+                    _this.hideLoadingGif();
+                    _this.showErrorMessage(_error.responseJSON.message);
                 }
             });
         },
@@ -2539,7 +2561,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $('#poll-loading-wedge').show('fast');
         },
         hideLoadingGif: function hideLoadingGif() {
-            $('#poll-loading-wedge').hide('fast');
+            var timeout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+            setTimeout(function () {
+                $('#poll-loading-wedge').hide('fast');
+            }, timeout);
         }
     }
 });
@@ -32763,11 +32789,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "margin-left": "30px"
       }
     }, [_vm._v(_vm._s(item.text))])])])
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), (_vm.poll_obj.captcha) ? _c('div', {
+    staticClass: "row"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('button', {
     staticClass: "btn btn-success",
     staticStyle: {
       "float": "right",
-      "font-size": "22px"
+      "font-size": "22px",
+      "margin-top": "11px"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.vote($event)
+      }
+    }
+  }, [_vm._v("Vote")])])]) : _c('button', {
+    staticClass: "btn btn-success",
+    staticStyle: {
+      "float": "right",
+      "font-size": "22px",
+      "margin-top": "11px"
     },
     attrs: {
       "type": "button"
@@ -32783,6 +32829,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "cr"
   }, [_c('i', {
     staticClass: "cr-icon glyphicon glyphicon-ok"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "g-recaptcha",
+    attrs: {
+      "data-sitekey": "6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"
+    }
   })])
 }]}
 module.exports.render._withStripped = true
@@ -32976,8 +33031,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "checkbox-poll-option checkbox"
   }, [_c('label', [_c('input', {
     attrs: {
+      "id": "p-use-captcha",
       "type": "checkbox",
-      "value": "yes"
+      "value": ""
     }
   }), _vm._v(" "), _c('span', {
     staticClass: "cr"

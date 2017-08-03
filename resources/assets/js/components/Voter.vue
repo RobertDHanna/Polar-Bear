@@ -9,7 +9,17 @@
                     <div style="margin-left: 30px;">{{item.text}}</div>
                 </label>
             </div>
-            <button type="button" class="btn btn-success" style="float:right;font-size: 22px;" v-on:click="vote($event)">Vote</button>
+
+            <div v-if="poll_obj.captcha" class="row">
+                <div class="col-sm-6">
+                    <div class="g-recaptcha" data-sitekey="6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"></div> 
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success" style="float:right;font-size: 22px;margin-top: 11px;" v-on:click="vote($event)">Vote</button>
+                </div>
+            </div>
+
+            <button v-else type="button" class="btn btn-success" style="float:right;font-size: 22px;margin-top: 11px;" v-on:click="vote($event)">Vote</button>
         </div>
     </div>
 </template>
@@ -118,18 +128,28 @@ export default {
             $.each($('input:checkbox:checked'), function(i, element) {
                 form.selection.push( $(element).val() );
             });
+
+            if (this.poll_obj.captcha)
+            {
+                form.g_recaptcha_response = $('#g-recaptcha-response').val();
+            }
             
             this.showLoadingGif();
+
+            var _this = this;
             $.ajax({
                 type: 'POST',
                 url: '/vote',
                 data: form,
                 success: function(response) {
                     console.log('success', response);
+                    _this.hideLoadingGif(1000);
                     window.location = response.result_url;
                 },
                 error: function(error) {
                     console.log('error', error);
+                    _this.hideLoadingGif();
+                    _this.showErrorMessage(error.responseJSON.message);
                 }
             });
         },
@@ -145,8 +165,8 @@ export default {
             $('#poll-loading-wedge').css('display', 'block').hide();
             $('#poll-loading-wedge').show('fast');
         },
-        hideLoadingGif: function() {
-            $('#poll-loading-wedge').hide('fast');
+        hideLoadingGif: function(timeout = 0) {
+            setTimeout(function() {$('#poll-loading-wedge').hide('fast');},timeout);
         },
     }
 }

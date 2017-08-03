@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Util;
+<?php namespace App\Util;
 
 use Request;
 

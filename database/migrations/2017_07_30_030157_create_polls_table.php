@@ -16,6 +16,7 @@ class CreatePollsTable extends Migration
         Schema::create('polls', function (Blueprint $table) {
             $table->increments('id');
             $table->text('question');
+            $table->boolean('captcha')->default(false);
             $table->boolean('multiple_choice')->default(false);
             $table->boolean('block_by_ip')->default(false);
             $table->boolean('block_by_cookie')->default(false);
