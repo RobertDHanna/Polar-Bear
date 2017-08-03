@@ -63,7 +63,6 @@ export default {
             return parseInt( (num_votes / this.poll_obj.total_votes) * 100 );
         },
         getNextProgressBarColor: function() {
-            console.log(this.progressColorClasses, this.progressColorClassIndex);
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {this.progressColorClassIndex = 0;}
             return this.progressColorClasses[ this.progressColorClassIndex++ ];
         }

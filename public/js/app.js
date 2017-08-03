@@ -2077,6 +2077,98 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2286,7 +2378,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return parseInt(num_votes / this.poll_obj.total_votes * 100);
         },
         getNextProgressBarColor: function getNextProgressBarColor() {
-            console.log(this.progressColorClasses, this.progressColorClassIndex);
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {
                 this.progressColorClassIndex = 0;
             }
@@ -4913,7 +5004,7 @@ exports.push([module.i, "\n.progress[data-v-2f5064d4] {\n    width: 100%;\n}\n.r
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n", ""]);
+exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n.checkbox-poll-option {\n     margin-bottom: 15px; \n     width: 211px;\n}\n.checkbox-wrapper {\n    font-size: 16px;\n}\n.radio label, .checkbox label {\n    padding-left: 0;\n    left: -18px;\n}\n.checkbox-poll-option label:after, \n.radio label:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox-poll-option .cr,\n.radio .cr {\n    position: relative;\n    display: inline-block;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n    background: white;\n    opacity: 1 !important;\n    font: unset;\n    color: #636b6f;\n}\n.radio .cr {\n    border-radius: 50%;\n}\n.checkbox-poll-option .cr .cr-icon,\n.radio .cr .cr-icon {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon {\n    margin-left: 0.04em;\n}\n.checkbox-poll-option label input[type=\"checkbox\"],\n.radio label input[type=\"radio\"] {\n    display: none;\n}\n.checkbox-poll-option label input[type=\"checkbox\"] + .cr > .cr-icon,\n.radio label input[type=\"radio\"] + .cr > .cr-icon {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:checked + .cr > .cr-icon,\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:disabled + .cr,\n.radio label input[type=\"radio\"]:disabled + .cr {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 41 */
@@ -32832,7 +32923,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
     staticClass: "poll"
-  }, [_vm._m(0), _vm._v(" "), _c('input', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('input', {
     staticClass: "add-option-btn",
     attrs: {
       "type": "submit",
@@ -32878,6 +32969,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "You can type your question here."
     }
   }), _vm._v(" "), _c('span', [_vm._v("Question")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "checkbox-wrapper"
+  }, [_c('div', {
+    staticClass: "checkbox-poll-option checkbox"
+  }, [_c('label', [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "value": "yes"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "cr"
+  }, [_c('i', {
+    staticClass: "cr-icon glyphicon glyphicon-ok"
+  })]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "margin-left": "45px",
+      "color": "white"
+    }
+  }, [_vm._v("Spam Protection")])])]), _vm._v(" "), _c('div', {
+    staticClass: "checkbox-poll-option checkbox"
+  }, [_c('label', [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "value": "yes"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "cr"
+  }, [_c('i', {
+    staticClass: "cr-icon glyphicon glyphicon-ok"
+  })]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "margin-left": "45px",
+      "color": "white"
+    }
+  }, [_vm._v("Check All That Apply")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

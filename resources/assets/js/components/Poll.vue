@@ -4,6 +4,22 @@
             <input id="poll-question-input" type="text" placeholder="You can type your question here.">
             <span>Question</span>
         </label>
+        <div class="checkbox-wrapper">
+        <div class="checkbox-poll-option checkbox">
+            <label>
+                <input type="checkbox" value="yes">
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <div style="margin-left: 45px; color:white;">Spam Protection</div>
+            </label>
+        </div>
+        <div class="checkbox-poll-option checkbox">
+            <label>
+                <input type="checkbox" value="yes">
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <div style="margin-left: 45px; color:white;">Check All That Apply</div>
+            </label>
+        </div>
+        </div>
         
         <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
         <input class="add-option-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
@@ -34,6 +50,82 @@
         margin-top: 2%;
         transition: all 0.2s ease-in-out;
     }
+}
+
+.checkbox-poll-option {
+     margin-bottom: 15px; 
+     width: 211px;
+}
+
+.checkbox-wrapper {
+    font-size: 16px;
+}
+
+.radio label, .checkbox label {
+    padding-left: 0;
+    left: -18px;
+}
+
+.checkbox-poll-option label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox-poll-option .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+    background: white;
+    opacity: 1 !important;
+    font: unset;
+    color: #636b6f;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox-poll-option .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox-poll-option label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox-poll-option label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    /* transition: all .3s ease-in; */
+}
+
+.checkbox-poll-option label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox-poll-option label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
 }
 </style>
 
