@@ -1,6 +1,9 @@
 <template>
     <div class="panel panel-default">
-        <div class="panel-heading" style="text-align:center;"><h3>{{poll_obj.question}}</h3></div>
+        <div class="panel-heading" style="text-align:center;">
+            <share-btn></share-btn>
+            <h3>{{poll_obj.question}}</h3>
+        </div>
         <div class="checkbox-wrapper panel-body">
             <div class="checkbox" v-for="item in poll_obj.options" v-bind:key="item.id" v-bind:item="item">
                 <label>

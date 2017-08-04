@@ -20,6 +20,7 @@ Vue.component('poll', require('./components/Poll.vue'));
 Vue.component('voter', require('./components/Voter.vue'));
 Vue.component('hat', require('./components/Hat.vue'));
 Vue.component('result', require('./components/Result.vue'));
+Vue.component('share-btn', require('./components/ShareButton.vue'));
 
 const app = new Vue({
     el: '#app'
