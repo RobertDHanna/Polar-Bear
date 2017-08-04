@@ -63,6 +63,7 @@ class VoteController extends Controller
                 {
                     return response(['message' => 'You have already voted on this poll!'], 400);
                 }
+                $cookie = $request->cookie('polljam-c');
             }
             else
             {
@@ -84,8 +85,6 @@ class VoteController extends Controller
         
         foreach ($request->input('selection') as $option_id)
         {
-            // TODO: vote check.
-
             Vote::create([
                 'poll_id' => $poll->id,
                 'option_id' => $option_id,
@@ -96,7 +95,7 @@ class VoteController extends Controller
 
         $response = response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => $poll->id]), 200]);
 
-        if ($cookie)
+        if (!$request->cookie('polljam-c') && $cookie)
         {
             $response->withCookie(cookie()->forever('polljam-c', $cookie));
         }

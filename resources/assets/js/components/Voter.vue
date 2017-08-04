@@ -15,19 +15,27 @@
                     <div class="g-recaptcha" data-sitekey="6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"></div> 
                 </div>
                 <div class="col-sm-6">
-                    <button type="button" class="btn btn-success" style="float:right;font-size: 22px;margin-top: 11px;" v-on:click="vote($event)">Vote</button>
+                    <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
+                    <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px; margin-right: 9px;background: #E94E4E;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
                 </div>
             </div>
-
-            <button v-else type="button" class="btn btn-success" style="float:right;font-size: 22px;margin-top: 11px;" v-on:click="vote($event)">Vote</button>
+            <div v-else>
+                <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
+                <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px; margin-right: 9px;background:#E94E4E;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
 button {
-    background: #22c385;
     border: none;
+}
+.btn-danger:hover {
+    background: #d14646 !important;
+}
+.vote-button:hover {
+    background: #1eaf77 !important;
 }
 .checkbox-wrapper {
     padding-left: 4%;
@@ -155,6 +163,12 @@ export default {
                     _this.showErrorMessage(error.responseJSON.message);
                 }
             });
+        },
+        results: function() {
+            this.hideMessages();
+            this.showLoadingGif();
+            this.hideLoadingGif(1000);
+            window.location = this.poll_obj.poll_url + '/results';
         },
         showErrorMessage: function(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);

@@ -4,12 +4,20 @@
             <input id="poll-question-input" type="text" placeholder="You can type your question here.">
             <span>Question</span>
         </label>
-        <select id="dup-check" class="selectpicker">
-            <option value="none">Don't Check Duplicates</option>
-            <option value="cookie">Filter By Cookie</option>
-            <option value="ip">Filter By IP Address</option>
-        </select>
 
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="dup-check" class="selectpicker">
+                    <option value="none">Don't Check Duplicates</option>
+                    <option value="cookie">Filter By Cookie</option>
+                    <option value="ip">Filter By IP Address</option>
+                </select>
+            </div>
+            <div class="col-xs-6">
+                 <input class="save-draft-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
+            </div>
+        </div>
+        
         <div class="checkbox-wrapper">
             <div class="checkbox-poll-option checkbox">
                 <label>
@@ -28,15 +36,28 @@
         </div>
         
         <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
-        <input class="add-option-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
         <input class="create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
     </form>
 </template>
 
 <style>
+.save-draft-btn {
+    margin-right: 21% !important; 
+    float: right !important;
+    background: white !important;
+    color: #636b6f !important;
+    font-size: 13px !important;
+    padding: 9px 11px !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.save-draft-btn:hover {
+    background: #E7E7E7 !important;
+}
+
 .add-option-btn {
     margin-right:2%; 
-    margin-bottom: 2%;
+     margin-bottom: 2%; 
 }
 
 .remove-option-btn {
@@ -48,12 +69,12 @@
 .create-poll-btn {
     float: right;
     margin-right: 10%;
-    padding: 12px 12px !important;
+    padding: 12px 12px !important; 
 }
 @media (max-width: 1145px) {
     .create-poll-btn {
         float: none;
-        margin-top: 2%;
+        /* margin-top: 2%; */
         transition: all 0.2s ease-in-out;
     }
 }

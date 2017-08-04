@@ -20,11 +20,19 @@
 
                 <hr />
             </div>
+            <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
         </div>
     </div>
 </template>
 
 <style scoped>
+button {
+    border: none;
+}
+
+.vote-button:hover {
+    background: #1eaf77 !important;
+}
 .progress {
     width: 100%;
 }
@@ -60,12 +68,24 @@ export default {
     },
     methods: {
         computePercent: function(num_votes) {
-            return parseInt( (num_votes / this.poll_obj.total_votes) * 100 );
+            return num_votes === 0 ? 0 : parseInt( (num_votes / this.poll_obj.total_votes) * 100 );
         },
         getNextProgressBarColor: function() {
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {this.progressColorClassIndex = 0;}
             return this.progressColorClasses[ this.progressColorClassIndex++ ];
-        }
+        },
+        vote: function() {
+            this.showLoadingGif();
+            this.hideLoadingGif(1000);
+            window.location = this.poll_obj.poll_url;
+        },
+        showLoadingGif: function() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function(timeout = 0) {
+            setTimeout(function() {$('#poll-loading-wedge').hide('fast');},timeout);
+        },
     }
 }
 </script>

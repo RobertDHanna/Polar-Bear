@@ -2175,6 +2175,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2369,6 +2390,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
@@ -2386,13 +2415,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         computePercent: function computePercent(num_votes) {
-            return parseInt(num_votes / this.poll_obj.total_votes * 100);
+            return num_votes === 0 ? 0 : parseInt(num_votes / this.poll_obj.total_votes * 100);
         },
         getNextProgressBarColor: function getNextProgressBarColor() {
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {
                 this.progressColorClassIndex = 0;
             }
             return this.progressColorClasses[this.progressColorClassIndex++];
+        },
+        vote: function vote() {
+            this.showLoadingGif();
+            this.hideLoadingGif(1000);
+            window.location = this.poll_obj.poll_url;
+        },
+        showLoadingGif: function showLoadingGif() {
+            $('#poll-loading-wedge').css('display', 'block').hide();
+            $('#poll-loading-wedge').show('fast');
+        },
+        hideLoadingGif: function hideLoadingGif() {
+            var timeout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+            setTimeout(function () {
+                $('#poll-loading-wedge').hide('fast');
+            }, timeout);
         }
     }
 });
@@ -2403,6 +2448,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2557,6 +2610,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.showErrorMessage(_error.responseJSON.message);
                 }
             });
+        },
+        results: function results() {
+            this.hideMessages();
+            this.showLoadingGif();
+            this.hideLoadingGif(1000);
+            window.location = this.poll_obj.poll_url + '/results';
         },
         showErrorMessage: function showErrorMessage(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);
@@ -5026,21 +5085,21 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\nbutton[data-v-0795c8e1] {\n    background: #22c385;\n    border: none;\n}\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-0795c8e1] {\n    border: none;\n}\n.btn-danger[data-v-0795c8e1]:hover {\n    background: #d14646 !important;\n}\n.vote-button[data-v-0795c8e1]:hover {\n    background: #1eaf77 !important;\n}\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.progress[data-v-2f5064d4] {\n    width: 100%;\n}\n.row[data-v-2f5064d4] {\n    margin-bottom: 2%;\n    font-size: 18px;\n}\n.votes-text[data-v-2f5064d4] {\n    float:right;\n}\nhr[data-v-2f5064d4] {\n    border-top: 1px solid #cccccc;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-2f5064d4] {\n    border: none;\n}\n.vote-button[data-v-2f5064d4]:hover {\n    background: #1eaf77 !important;\n}\n.progress[data-v-2f5064d4] {\n    width: 100%;\n}\n.row[data-v-2f5064d4] {\n    margin-bottom: 2%;\n    font-size: 18px;\n}\n.votes-text[data-v-2f5064d4] {\n    float:right;\n}\nhr[data-v-2f5064d4] {\n    border-top: 1px solid #cccccc;\n}\n", ""]);
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.add-option-btn {\n    margin-right:2%; \n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        margin-top: 2%;\n        transition: all 0.2s ease-in-out;\n}\n}\n.checkbox-poll-option {\n     margin-bottom: 15px; \n     width: 211px;\n}\n.checkbox-wrapper {\n    font-size: 16px;\n}\n.radio label, .checkbox label {\n    padding-left: 0;\n    left: -18px;\n}\n.checkbox-poll-option label:after, \n.radio label:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox-poll-option .cr,\n.radio .cr {\n    position: relative;\n    display: inline-block;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n    background: white;\n    opacity: 1 !important;\n    font: unset;\n    color: #636b6f;\n}\n.radio .cr {\n    border-radius: 50%;\n}\n.checkbox-poll-option .cr .cr-icon,\n.radio .cr .cr-icon {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon {\n    margin-left: 0.04em;\n}\n.checkbox-poll-option label input[type=\"checkbox\"],\n.radio label input[type=\"radio\"] {\n    display: none;\n}\n.checkbox-poll-option label input[type=\"checkbox\"] + .cr > .cr-icon,\n.radio label input[type=\"radio\"] + .cr > .cr-icon {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:checked + .cr > .cr-icon,\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:disabled + .cr,\n.radio label input[type=\"radio\"]:disabled + .cr {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\n.save-draft-btn {\n    margin-right: 21% !important; \n    float: right !important;\n    background: white !important;\n    color: #636b6f !important;\n    font-size: 13px !important;\n    padding: 9px 11px !important;\n    transition: all 0.2s ease-in-out !important;\n}\n.save-draft-btn:hover {\n    background: #E7E7E7 !important;\n}\n.add-option-btn {\n    margin-right:2%; \n     margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n}\n.create-poll-btn {\n    float: right;\n    margin-right: 10%;\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        /* margin-top: 2%; */\n        transition: all 0.2s ease-in-out;\n}\n}\n.checkbox-poll-option {\n     margin-bottom: 15px; \n     width: 211px;\n}\n.checkbox-wrapper {\n    font-size: 16px;\n}\n.radio label, .checkbox label {\n    padding-left: 0;\n    left: -18px;\n}\n.checkbox-poll-option label:after, \n.radio label:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox-poll-option .cr,\n.radio .cr {\n    position: relative;\n    display: inline-block;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n    background: white;\n    opacity: 1 !important;\n    font: unset;\n    color: #636b6f;\n}\n.radio .cr {\n    border-radius: 50%;\n}\n.checkbox-poll-option .cr .cr-icon,\n.radio .cr .cr-icon {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon {\n    margin-left: 0.04em;\n}\n.checkbox-poll-option label input[type=\"checkbox\"],\n.radio label input[type=\"radio\"] {\n    display: none;\n}\n.checkbox-poll-option label input[type=\"checkbox\"] + .cr > .cr-icon,\n.radio label input[type=\"radio\"] + .cr > .cr-icon {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:checked + .cr > .cr-icon,\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:disabled + .cr,\n.radio label input[type=\"radio\"]:disabled + .cr {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 41 */
@@ -32804,11 +32863,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-sm-6"
   }, [_c('button', {
-    staticClass: "btn btn-success",
+    staticClass: "btn btn-success vote-button",
     staticStyle: {
       "float": "right",
       "font-size": "22px",
-      "margin-top": "11px"
+      "margin-top": "11px",
+      "background": "#22c385"
     },
     attrs: {
       "type": "button"
@@ -32818,12 +32878,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.vote($event)
       }
     }
-  }, [_vm._v("Vote")])])]) : _c('button', {
-    staticClass: "btn btn-success",
+  }, [_vm._v("Vote")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-danger",
     staticStyle: {
       "float": "right",
       "font-size": "22px",
-      "margin-top": "11px"
+      "margin-top": "11px",
+      "margin-right": "9px",
+      "background": "#E94E4E"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.results($event)
+      }
+    }
+  }, [_vm._m(2), _vm._v(" Results")])])]) : _c('div', [_c('button', {
+    staticClass: "btn btn-success vote-button",
+    staticStyle: {
+      "float": "right",
+      "font-size": "22px",
+      "margin-top": "11px",
+      "background": "#22c385"
     },
     attrs: {
       "type": "button"
@@ -32833,7 +32911,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.vote($event)
       }
     }
-  }, [_vm._v("Vote")])], 2)])
+  }, [_vm._v("Vote")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-danger",
+    staticStyle: {
+      "float": "right",
+      "font-size": "22px",
+      "margin-top": "11px",
+      "margin-right": "9px",
+      "background": "#E94E4E"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.results($event)
+      }
+    }
+  }, [_vm._m(3), _vm._v(" Results")])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "cr"
@@ -32848,6 +32943,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-sitekey": "6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"
     }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "glyphicon glyphicon-stats"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "glyphicon glyphicon-stats"
   })])
 }]}
 module.exports.render._withStripped = true
@@ -32932,7 +33035,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Results")]), _c('h2', [_vm._v(_vm._s(_vm.poll_obj.question))])]), _vm._v(" "), _c('div', {
     staticClass: "checkbox-wrapper panel-body"
-  }, _vm._l((_vm.poll_obj.options), function(item) {
+  }, [_vm._l((_vm.poll_obj.options), function(item) {
     return _c('div', {
       key: item.id,
       attrs: {
@@ -32971,7 +33074,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-valuemax": "100"
       }
     })]), _vm._v(" "), _c('hr')])
-  }))])
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success vote-button",
+    staticStyle: {
+      "float": "right",
+      "font-size": "22px",
+      "margin-top": "11px",
+      "background": "#22c385"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.vote($event)
+      }
+    }
+  }, [_vm._v("Vote")])], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -32988,7 +33107,22 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
     staticClass: "poll"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('input', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-6"
+  }, [_c('input', {
+    staticClass: "save-draft-btn",
+    attrs: {
+      "type": "submit",
+      "value": "Save Draft"
+    },
+    on: {
+      "click": function($event) {
+        _vm.createPoll($event)
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('input', {
     staticClass: "add-option-btn",
     attrs: {
       "type": "submit",
@@ -32997,17 +33131,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": function($event) {
         _vm.addOption($event, true)
-      }
-    }
-  }), _vm._v(" "), _c('input', {
-    staticClass: "add-option-btn",
-    attrs: {
-      "type": "submit",
-      "value": "Save Draft"
-    },
-    on: {
-      "click": function($event) {
-        _vm.createPoll($event)
       }
     }
   }), _vm._v(" "), _c('input', {
@@ -33035,7 +33158,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('span', [_vm._v("Question")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('select', {
+  return _c('div', {
+    staticClass: "col-xs-6"
+  }, [_c('select', {
     staticClass: "selectpicker",
     attrs: {
       "id": "dup-check"
@@ -33052,7 +33177,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "ip"
     }
-  }, [_vm._v("Filter By IP Address")])])
+  }, [_vm._v("Filter By IP Address")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "checkbox-wrapper"
