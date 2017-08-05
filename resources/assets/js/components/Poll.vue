@@ -13,9 +13,6 @@
                     <option value="ip">Filter By IP Address</option>
                 </select>
             </div>
-            <div class="col-xs-6">
-                 <input class="save-draft-btn" type="submit" value="Save Draft" v-on:click="createPoll($event)">
-            </div>
         </div>
         
         <div class="checkbox-wrapper">
@@ -34,13 +31,29 @@
                 </label>
             </div>
         </div>
+        <input style="display:none;" class="side-btn add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)"> 
+        <div class="row">
+            <div class="col-md-6">
+                <input class="poll-btn create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
+            </div>
+            <div class="col-md-6">
+                <input style="float:right;" class="side-btn add-option-btn" type="submit" value="Save Draft" v-on:click="addOption($event, true)"> 
+                <input style="float:left;" class="side-btn add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
+            </div>
+        </div>
         
-        <input class="add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
-        <input class="create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
     </form>
 </template>
 
 <style>
+.poll-btn {
+    width: 100% !important;
+    margin-top: 11px;
+}
+.side-btn {
+    width: 48%;
+    margin-top: 11px;
+}
 .save-draft-btn {
     margin-right: 21% !important; 
     float: right !important;
@@ -56,8 +69,8 @@
 }
 
 .add-option-btn {
-    margin-right:2%; 
-     margin-bottom: 2%; 
+    /* margin-right:2%;  */
+    margin-bottom: 2%; 
 }
 
 .remove-option-btn {
@@ -67,8 +80,8 @@
 }
 
 .create-poll-btn {
-    float: right;
-    margin-right: 10%;
+    /* float: right; */
+    /* margin-right: 10%; */
     padding: 12px 12px !important; 
 }
 @media (max-width: 1145px) {

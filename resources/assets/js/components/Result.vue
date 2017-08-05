@@ -1,6 +1,6 @@
 <template>
   <div class="panel panel-default">
-        <div class="panel-heading" style="text-align:center;"><share-btn></share-btn><h4 style="text-align:center;">Results</h4><h2>{{poll_obj.question}}</h2></div>
+        <div class="panel-heading" style="text-align:center;"><h4 style="text-align:center;">Results</h4><h2>{{poll_obj.question}}</h2></div>
         <div class="checkbox-wrapper panel-body">
             <div v-for="item in poll_obj.options" v-bind:key="item.id" v-bind:item="item">
                 <div style="font-size: 20px;">{{item.text}}</div>
@@ -20,7 +20,15 @@
 
                 <hr />
             </div>
-            <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
+            <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-success vote-button" style="font-size: 22px;margin-top: 11px;background:#22c385;width:100%" v-on:click="vote($event)">Vote</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger" style="float:left;font-size: 22px;margin-top: 11px;background: #E94E4E; width:100%;" v-on:click="results($event)"><span class="share-btn"><i class="glyphicon glyphicon-share"></i></span> Share</button>
+            </div>
+            </div>
+            <!-- <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button> -->
         </div>
     </div>
 </template>

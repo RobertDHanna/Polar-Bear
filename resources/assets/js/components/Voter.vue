@@ -1,7 +1,6 @@
 <template>
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align:center;">
-            <share-btn></share-btn>
             <h3>{{poll_obj.question}}</h3>
         </div>
         <div class="checkbox-wrapper panel-body">
@@ -12,19 +11,15 @@
                     <div style="margin-left: 30px;">{{item.text}}</div>
                 </label>
             </div>
-
-            <div v-if="poll_obj.captcha" class="row">
-                <div class="col-sm-6">
-                    <div class="g-recaptcha" data-sitekey="6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"></div> 
+            <div v-if="poll_obj.captcha" class="g-recaptcha" data-sitekey="6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"></div> 
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success vote-button" style="font-size: 22px;margin-top: 11px;background:#22c385;width:100%" v-on:click="vote($event)">Vote</button>
                 </div>
-                <div class="col-sm-6">
-                    <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
-                    <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px; margin-right: 9px;background: #E94E4E;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger" style="float:left;font-size: 22px;margin-top: 11px;background: #E94E4E; width:49%;" v-on:click="results($event)"><span class="share-btn"><i class="glyphicon glyphicon-share"></i></span> Share</button>
+                    <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px;background: #E94E4E; width:49%;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
                 </div>
-            </div>
-            <div v-else>
-                <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button>
-                <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px; margin-right: 9px;background:#E94E4E;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
             </div>
         </div>
     </div>
