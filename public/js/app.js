@@ -2035,8 +2035,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -2238,11 +2236,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     methods: {
         generateForm: function generateForm() {
-            if (typeof this.question === 'string') {}
             var _this = this;
             $(document).ready(function () {
-                if ((_typeof(this.options) === 'object' || this.options === 'array') && this.options.length > 0) {
-                    // Open draft form
+                var form = _this.getParameterByName('draft', window.location.href);
+                if (form !== null) {
+                    form = JSON.parse(form);
+                    $('#poll-question-input').val(form.question);
+                    $.each(form.options, function (i, item) {
+                        _this.addOption(null, false, item);
+                    });
+                    $('#p-use-captcha').prop('checked', form.captcha);
+                    $('#multiple-choice').prop('checked', form.multiple_choice);
+                    $('#dup-check').val(form.dup_check);
                 } else {
                     _this.addOption();
                     _this.addOption();
@@ -2251,12 +2256,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
         addOption: function addOption(e) {
             var clicked = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+            var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
             if (e !== null && e !== undefined) {
                 e.preventDefault();
             }
             var uid = this.nextUid();
-            var element = $('<div class="poll-option-container"><span id="poll-option-' + uid + '-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input id="poll-option-' + uid + '" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
+            if (uid > 10) {
+                return;
+            } // 10 options max.
+            var element = $('<div class="poll-option-container"><span id="poll-option-' + uid + '-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input maxlength="200" id="poll-option-' + uid + '" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
             if ($('.poll').find('.poll-option-input').length > 0) {
                 $('.poll-option-container').last().after(element);
                 if (clicked) {
@@ -2271,6 +2280,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             } else {
                 element.show('slow');
             }
+            element.find('input').val(value);
             $('[data-toggle="tooltip"]').tooltip();
         },
         removeOption: function removeOption(e) {
@@ -2293,19 +2303,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.showErrorMessage('Your poll must include a question!');
                 return;
             }
-            var form = {
-                'question': $('#poll-question-input').val(),
-                'options': [],
-                'captcha': $('#p-use-captcha').prop('checked'),
-                'multiple_choice': $('#multiple-choice').prop('checked'),
-                'dup_check': $('#dup-check').val()
-            };
 
-            $('.poll-option-input').each(function (i, val) {
-                if ($(val).val().trim().length > 0) {
-                    form.options.push($(val).val());
-                }
-            });
+            var form = this.getForm();
 
             if (Object.keys(form.options).length < 2) {
                 this.showErrorMessage('Your poll must include at least <strong>two</strong> options!');
@@ -2326,6 +2325,46 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     console.log('error', _error);
                 }
             });
+        },
+        getForm: function getForm() {
+            var form = {
+                'question': $('#poll-question-input').val(),
+                'options': [],
+                'captcha': $('#p-use-captcha').prop('checked'),
+                'multiple_choice': $('#multiple-choice').prop('checked'),
+                'dup_check': $('#dup-check').val()
+            };
+
+            $('.poll-option-input').each(function (i, val) {
+                if ($(val).val().trim().length > 0) {
+                    form.options.push($(val).val());
+                }
+            });
+            return form;
+        },
+        saveDraft: function saveDraft(e) {
+            e.preventDefault();
+            var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm())));
+            this.showInfoMessage('Your unique draft url is: <strong>' + uri + '</strong>');
+        },
+        getParameterByName: function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        },
+
+        addQueryParamToUrl: function addQueryParamToUrl(uri, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            } else {
+                return uri + separator + key + "=" + value;
+            }
         },
         showErrorMessage: function showErrorMessage(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);
@@ -2546,9 +2585,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['width', 'url'],
+    created: function created() {
+        this.is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    },
     methods: {
         share: function share(e) {
             e.preventDefault();
@@ -32791,7 +32839,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Example.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32825,7 +32873,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Hat.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/Hat.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Hat.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32863,7 +32911,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Poll.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/Poll.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Poll.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32901,7 +32949,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Result.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/Result.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Result.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32939,7 +32987,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/ShareButton.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/ShareButton.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ShareButton.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32977,7 +33025,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/roberthanna/code/Polar-Bear/resources/assets/js/components/Voter.vue"
+Component.options.__file = "/Users/roberthanna/Documents/side_projects/Polar-Bear/resources/assets/js/components/Voter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Voter.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -33005,12 +33053,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
-    staticClass: "panel-heading",
+    staticClass: "panel-heading wordwrap",
     staticStyle: {
       "text-align": "center"
     }
   }, [_c('h3', [_vm._v(_vm._s(_vm.poll_obj.question))])]), _vm._v(" "), _c('div', {
-    staticClass: "checkbox-wrapper panel-body"
+    staticClass: "checkbox-wrapper panel-body wordwrap"
   }, [_vm._l((_vm.poll_obj.options), function(item) {
     return _c('div', {
       key: item.id,
@@ -33101,7 +33149,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('img', {
+  return _c('div', {
+    staticClass: "wordwrap"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('img', {
     staticStyle: {
       "display": "none",
       "margin": "auto",
@@ -33158,7 +33208,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "panel panel-default"
+    staticClass: "panel panel-default wordwrap"
   }, [_c('div', {
     staticClass: "panel-heading",
     staticStyle: {
@@ -33298,7 +33348,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.addOption($event, true)
+        _vm.saveDraft($event)
       }
     }
   }), _vm._v(" "), _c('input', {
@@ -33323,6 +33373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('input', {
     attrs: {
+      "maxlength": "200",
       "id": "poll-question-input",
       "type": "text",
       "placeholder": "You can type your question here."
@@ -33460,7 +33511,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "action-button-text"
   }, [_vm._v("Share")])]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
-  }, [_c('li', [_c('div', {
+  }, [_c('li', [(!_vm.is_mobile) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-9",
@@ -33502,7 +33553,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.copyToClipboard($event)
       }
     }
-  }, [_vm._v("Copy")])])])])])])
+  }, [_vm._v("Copy")])])]) : _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_c('span', {
+    staticClass: "input-group-addon",
+    attrs: {
+      "id": "basic-addon1"
+    }
+  }, [_vm._v("url: ")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "id": "share-url",
+      "type": "text",
+      "aria-describedby": "basic-addon1"
+    },
+    domProps: {
+      "value": _vm.url
+    }
+  })])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33655,7 +33723,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.4.2
+ * Vue.js v2.4.1
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -33685,11 +33753,7 @@ function isFalse (v) {
  * Check if value is primitive
  */
 function isPrimitive (value) {
-  return (
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'boolean'
-  )
+  return typeof value === 'string' || typeof value === 'number'
 }
 
 /**
@@ -33912,30 +33976,14 @@ function genStaticKeys (modules) {
  * if they are plain objects, do they have the same shape?
  */
 function looseEqual (a, b) {
-  if (a === b) { return true }
   var isObjectA = isObject(a);
   var isObjectB = isObject(b);
   if (isObjectA && isObjectB) {
     try {
-      var isArrayA = Array.isArray(a);
-      var isArrayB = Array.isArray(b);
-      if (isArrayA && isArrayB) {
-        return a.length === b.length && a.every(function (e, i) {
-          return looseEqual(e, b[i])
-        })
-      } else if (!isArrayA && !isArrayB) {
-        var keysA = Object.keys(a);
-        var keysB = Object.keys(b);
-        return keysA.length === keysB.length && keysA.every(function (key) {
-          return looseEqual(a[key], b[key])
-        })
-      } else {
-        /* istanbul ignore next */
-        return false
-      }
+      return JSON.stringify(a) === JSON.stringify(b)
     } catch (e) {
-      /* istanbul ignore next */
-      return false
+      // possible circular reference
+      return a === b
     }
   } else if (!isObjectA && !isObjectB) {
     return String(a) === String(b)
@@ -34800,7 +34848,7 @@ function mergeDataOrFn (
     return function mergedDataFn () {
       return mergeData(
         typeof childVal === 'function' ? childVal.call(this) : childVal,
-        typeof parentVal === 'function' ? parentVal.call(this) : parentVal
+        parentVal.call(this)
       )
     }
   } else if (parentVal || childVal) {
@@ -34916,10 +34964,11 @@ strats.props =
 strats.methods =
 strats.inject =
 strats.computed = function (parentVal, childVal) {
+  if (!childVal) { return Object.create(parentVal || null) }
   if (!parentVal) { return childVal }
   var ret = Object.create(null);
   extend(ret, parentVal);
-  if (childVal) { extend(ret, childVal); }
+  extend(ret, childVal);
   return ret
 };
 strats.provide = mergeDataOrFn;
@@ -36865,14 +36914,17 @@ function initComputed (vm, computed) {
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
-    if ("development" !== 'production' && getter == null) {
-      warn(
-        ("Getter is missing for computed property \"" + key + "\"."),
-        vm
-      );
+    if (true) {
+      if (getter === undefined) {
+        warn(
+          ("No getter function has been defined for computed property \"" + key + "\"."),
+          vm
+        );
+        getter = noop;
+      }
     }
     // create internal watcher for the computed property.
-    watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions);
+    watchers[key] = new Watcher(vm, getter, noop, computedWatcherOptions);
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
@@ -36902,15 +36954,6 @@ function defineComputed (target, key, userDef) {
     sharedPropertyDefinition.set = userDef.set
       ? userDef.set
       : noop;
-  }
-  if ("development" !== 'production' &&
-      sharedPropertyDefinition.set === noop) {
-    sharedPropertyDefinition.set = function () {
-      warn(
-        ("Computed property \"" + key + "\" was assigned to but it has no setter."),
-        this
-      );
-    };
   }
   Object.defineProperty(target, key, sharedPropertyDefinition);
 }
@@ -37083,7 +37126,7 @@ function resolveInject (inject, vm) {
         }
         source = source.$parent;
       }
-      if ("development" !== 'production' && !source) {
+      if ("development" !== 'production' && !hasOwn(result, key)) {
         warn(("Injection \"" + key + "\" not found"), vm);
       }
     }
@@ -37276,12 +37319,8 @@ function createComponent (
     return createFunctionalComponent(Ctor, propsData, data, context, children)
   }
 
-  // extract listeners, since these needs to be treated as
-  // child component listeners instead of DOM listeners
+  // keep listeners
   var listeners = data.on;
-  // replace with listeners with .native modifier
-  // so it gets processed during parent component patch.
-  data.on = data.nativeOn;
 
   if (isTrue(Ctor.options.abstract)) {
     // abstract components do not keep anything
@@ -37744,12 +37783,12 @@ function initRender (vm) {
     defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, function () {
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
-    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, function () {
+    defineReactive$$1(vm, '$listeners', parentData && parentData.on, function () {
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
   } else {
     defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, null, true);
-    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, null, true);
+    defineReactive$$1(vm, '$listeners', parentData && parentData.on, null, true);
   }
 }
 
@@ -38313,7 +38352,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.4.2';
+Vue$3.version = '2.4.1';
 
 /*  */
 
@@ -39973,7 +40012,7 @@ function genCheckboxModel (
     'if(Array.isArray($$a)){' +
       "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
           '$$i=_i($$a,$$v);' +
-      "if($$el.checked){$$i<0&&(" + value + "=$$a.concat($$v))}" +
+      "if($$c){$$i<0&&(" + value + "=$$a.concat($$v))}" +
       "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" +
     "}else{" + (genAssignmentCode(value, '$$c')) + "}",
     null, true
@@ -40109,11 +40148,14 @@ function remove$2 (
 }
 
 function updateDOMListeners (oldVnode, vnode) {
-  if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
+  var isComponentRoot = isDef(vnode.componentOptions);
+  var oldOn = isComponentRoot ? oldVnode.data.nativeOn : oldVnode.data.on;
+  var on = isComponentRoot ? vnode.data.nativeOn : vnode.data.on;
+  if (isUndef(oldOn) && isUndef(on)) {
     return
   }
-  var on = vnode.data.on || {};
-  var oldOn = oldVnode.data.on || {};
+  on = on || {};
+  oldOn = oldOn || {};
   target$1 = vnode.elm;
   normalizeEvents(on);
   updateListeners(on, oldOn, add$1, remove$2, vnode.context);
@@ -40187,11 +40229,7 @@ function shouldUpdateValue (
 function isDirty (elm, checkVal) {
   // return true when textbox (.number and .trim) loses focus and its value is
   // not equal to the updated value
-  var notInFocus = true;
-  // #6157
-  // work around IE bug when accessing document.activeElement in an iframe
-  try { notInFocus = document.activeElement !== elm; } catch (e) {}
-  return notInFocus && elm.value !== checkVal
+  return document.activeElement !== elm && elm.value !== checkVal
 }
 
 function isInputChanged (elm, newVal) {
@@ -40971,7 +41009,6 @@ var model$1 = {
       if (isIE || isEdge) {
         setTimeout(cb, 0);
       }
-      el._vOptions = [].map.call(el.options, getValue);
     } else if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
       el._vModifiers = binding.modifiers;
       if (!binding.modifiers.lazy) {
@@ -40998,9 +41035,10 @@ var model$1 = {
       // it's possible that the value is out-of-sync with the rendered options.
       // detect such cases and filter out values that no longer has a matching
       // option in the DOM.
-      var prevOptions = el._vOptions;
-      var curOptions = el._vOptions = [].map.call(el.options, getValue);
-      if (curOptions.some(function (o, i) { return !looseEqual(o, prevOptions[i]); })) {
+      var needReset = el.multiple
+        ? binding.value.some(function (v) { return hasNoMatchingOption(v, el.options); })
+        : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, el.options);
+      if (needReset) {
         trigger(el, 'change');
       }
     }
@@ -41038,6 +41076,15 @@ function setSelected (el, binding, vm) {
   if (!isMultiple) {
     el.selectedIndex = -1;
   }
+}
+
+function hasNoMatchingOption (value, options) {
+  for (var i = 0, l = options.length; i < l; i++) {
+    if (looseEqual(getValue(options[i]), value)) {
+      return false
+    }
+  }
+  return true
 }
 
 function getValue (option) {
@@ -41080,7 +41127,7 @@ var show = {
     var transition$$1 = vnode.data && vnode.data.transition;
     var originalDisplay = el.__vOriginalDisplay =
       el.style.display === 'none' ? '' : el.style.display;
-    if (value && transition$$1) {
+    if (value && transition$$1 && !isIE9) {
       vnode.data.show = true;
       enter(vnode, function () {
         el.style.display = originalDisplay;
@@ -41098,7 +41145,7 @@ var show = {
     if (value === oldValue) { return }
     vnode = locateNode(vnode);
     var transition$$1 = vnode.data && vnode.data.transition;
-    if (transition$$1) {
+    if (transition$$1 && !isIE9) {
       vnode.data.show = true;
       if (value) {
         enter(vnode, function () {
@@ -41839,6 +41886,9 @@ function parseHTML (html, options) {
     last = html;
     // Make sure we're not in a plaintext content element like script/style
     if (!lastTag || !isPlainTextElement(lastTag)) {
+      if (shouldIgnoreFirstNewline(lastTag, html)) {
+        advance(1);
+      }
       var textEnd = html.indexOf('<');
       if (textEnd === 0) {
         // Comment:
@@ -41884,9 +41934,6 @@ function parseHTML (html, options) {
         var startTagMatch = parseStartTag();
         if (startTagMatch) {
           handleStartTag(startTagMatch);
-          if (shouldIgnoreFirstNewline(lastTag, html)) {
-            advance(1);
-          }
           continue
         }
       }
@@ -42547,8 +42594,8 @@ function processAttrs (el) {
             );
           }
         }
-        if (isProp || (
-          !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
+        if (!el.component && (
+          isProp || platformMustUseProp(el.tag, el.attrsMap.type, name)
         )) {
           addProp(el, name, value);
         } else {
@@ -43334,7 +43381,7 @@ function genText (text) {
 }
 
 function genComment (comment) {
-  return ("_e(" + (JSON.stringify(comment.text)) + ")")
+  return ("_e('" + (comment.text) + "')")
 }
 
 function genSlot (el, state) {

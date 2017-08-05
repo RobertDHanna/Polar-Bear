@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wordwrap">
         <div id="poll-error-message" class="alert alert-danger" role="alert" style="display:none;font-size: 16px;">
             <span id="poll-error-message-text"></span>
         </div>

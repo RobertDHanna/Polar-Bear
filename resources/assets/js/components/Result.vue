@@ -1,5 +1,5 @@
 <template>
-  <div class="panel panel-default">
+  <div class="panel panel-default wordwrap">
         <div class="panel-heading" style="text-align:center;"><h4 style="text-align:center;">Results</h4><h2>{{poll_obj.question}}</h2></div>
         <div class="checkbox-wrapper panel-body">
             <div v-for="item in poll_obj.options" v-bind:key="item.id" v-bind:item="item">

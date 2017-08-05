@@ -2,19 +2,25 @@
     <div class="btn-group dropup" v-bind:style="{ width: width }">
         <button style="width:100%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle side-btn add-option-btn extra-action-btn" type="submit" value="Results" v-on:click="share($event)"><span class="glyphicon glyphicon-share"></span> <span class="action-button-text">Share</span> </button>
         <ul class="dropdown-menu">
-                <li>
-                    <div class="row">
-                        <div class="col-xs-9" style="padding-right:0">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">url: </span>
-                                <input id="share-url" type="text" class="form-control" :value="url" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                        <div class="col-xs-3" style="padding-left:0;">
-                            <button class="btn" style="background:none;" id="copy-to-clipboard" v-on:click="copyToClipboard($event)">Copy</button>
+            <li>
+                <div class="row" v-if="!is_mobile">
+                    <div class="col-xs-9" style="padding-right:0">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">url: </span>
+                            <input id="share-url" type="text" class="form-control" :value="url" aria-describedby="basic-addon1">
                         </div>
                     </div>
-                </li>
+                    <div class="col-xs-3" style="padding-left:0;">
+                        <button class="btn" style="background:none;" id="copy-to-clipboard" v-on:click="copyToClipboard($event)">Copy</button>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">url: </span>
+                        <input id="share-url" type="text" class="form-control" :value="url" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </template>
@@ -74,6 +80,9 @@
 <script>
 export default {
     props: ['width', 'url'],
+    created: function () {
+        this.is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    },
     methods: {
         share: function(e) {
             e.preventDefault();

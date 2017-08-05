@@ -37,12 +37,12 @@ class PollController extends Controller
         */
         $custom_error_message = [
             'size' => 'The :attribute must have at least one element.',
-            'options.min' => 'There must be at least one :attribute.',
+            'options.min' => 'There must be at least two :attribute.',
         ];
         $validator = Validator::make($request->all(), [
-            'question' => 'required',
-            'options' => 'required|min:1',
-            'options.*' => 'required',
+            'question' => 'required|max:200', // 200 characters max.
+            'options' => 'required|min:2|max:10', // minimum of two options and maximum of 10.
+            'options.*' => 'required|max:200', // 200 characters max per option.
         ], $custom_error_message);
 
         if ($validator->fails())

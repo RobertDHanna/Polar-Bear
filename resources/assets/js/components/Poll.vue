@@ -1,7 +1,7 @@
 <template>
     <form class="poll">
         <label id="poll-question">
-            <input id="poll-question-input" type="text" placeholder="You can type your question here.">
+            <input maxlength="200" id="poll-question-input" type="text" placeholder="You can type your question here.">
             <span>Question</span>
         </label>
 
@@ -37,7 +37,7 @@
                 <input class="poll-btn create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
             </div>
             <div class="col-sm-6">
-                <input style="float:right;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Save Draft" v-on:click="addOption($event, true)"> 
+                <input style="float:right;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Save Draft" v-on:click="saveDraft($event)"> 
                 <input style="float:left;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
             </div>
         </div>
@@ -200,15 +200,19 @@ export default {
     },
     methods: {
         generateForm: function() {
-            if (typeof this.question === 'string')
-            {
-                
-            }
             var _this = this;
             $(document).ready(function() {
-                if ((typeof this.options === 'object' || this.options === 'array') && this.options.length > 0)
+                var form = _this.getParameterByName('draft',window.location.href);
+                if (form !== null)
                 {
-                    // Open draft form
+                    form = JSON.parse(form);
+                    $('#poll-question-input').val(form.question);
+                    $.each(form.options, function(i, item) {
+                        _this.addOption(null, false, item);
+                    });
+                    $('#p-use-captcha').prop('checked', form.captcha);
+                    $('#multiple-choice').prop('checked', form.multiple_choice);
+                    $('#dup-check').val(form.dup_check);
                 }
                 else
                 {
@@ -217,13 +221,14 @@ export default {
                 }
             });
         },
-        addOption: function(e, clicked = false) {
+        addOption: function(e, clicked = false, value = '') {
             if (e !== null && e !== undefined)
             {
                 e.preventDefault();
             }
             var uid = this.nextUid();
-            var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
+            if (uid > 10) { return; } // 10 options max.
+            var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input maxlength="200" id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
             if ($('.poll').find('.poll-option-input').length > 0)
             {
                 $('.poll-option-container').last().after(element);
@@ -245,6 +250,7 @@ export default {
             {
                 element.show('slow');
             }
+            element.find('input').val(value);
             $('[data-toggle="tooltip"]').tooltip();
         },
         removeOption: function(e) {
@@ -268,21 +274,9 @@ export default {
                 this.showErrorMessage('Your poll must include a question!');
                 return;
             }
-            var form = {
-                'question' : $('#poll-question-input').val(),
-                'options' : [],
-                'captcha' : $('#p-use-captcha').prop('checked'),
-                'multiple_choice': $('#multiple-choice').prop('checked'),
-                'dup_check': $('#dup-check').val(),
-            };
+            
+            var form = this.getForm();
 
-            $('.poll-option-input').each(function(i, val) {
-                if ($(val).val().trim().length > 0)
-                {
-                    form.options.push( $(val).val() );
-                }
-            });
-           
             if (Object.keys(form.options).length < 2)
             {
                 this.showErrorMessage('Your poll must include at least <strong>two</strong> options!');
@@ -303,6 +297,49 @@ export default {
                     console.log('error', error);
                 }
             });
+        },
+        getForm: function() {
+            var form = {
+                'question' : $('#poll-question-input').val(),
+                'options' : [],
+                'captcha' : $('#p-use-captcha').prop('checked'),
+                'multiple_choice': $('#multiple-choice').prop('checked'),
+                'dup_check': $('#dup-check').val(),
+            };
+
+            $('.poll-option-input').each(function(i, val) {
+                if ($(val).val().trim().length > 0)
+                {
+                    form.options.push( $(val).val() );
+                }
+            });
+            return form;
+        },
+        saveDraft: function(e) {
+            e.preventDefault();
+            var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm())));
+            this.showInfoMessage('Your unique draft url is: <strong>' + uri + '</strong>');
+        },
+        getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        },
+        addQueryParamToUrl: function(uri, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) 
+            {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            }
+            else 
+            {
+                return uri + separator + key + "=" + value;
+            }
         },
         showErrorMessage: function(message) {
             $('#poll-error-message').find('#poll-error-message-text').html(message);
