@@ -1,5 +1,5 @@
 .navbar-default {
-    background-color: #00BFFF;
+    background-color: #6EC4D8;
     border-color: transparent;
 }
 
@@ -16,14 +16,14 @@
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-    background-color: #00BFFF;
+    background-color: #6EC4D8;
 }
 
 #app {
     min-height: 100vh;
     height: 100%;
     padding-bottom:40px;
-    background-color: #00BFFF;
+    background-color: #6EC4D8;
 }
 
 .poll-main-body {
@@ -103,7 +103,7 @@ form {
             }
     
         span {
-        color: #35dc9b;
+        color: #438496;
         font: 13px Helvetica, Arial, sans-serif;
         position: absolute;
         top: 0px;
@@ -118,13 +118,27 @@ form {
     font: 18px Helvetica, Arial, sans-serif;
     border: none;
     // background: #35dc9b;
-    background: #26d994;
+    background: #438496;
     color: #fff;
     padding: 12px 12px;
     border-radius: 4px;
     
     &:hover {
-      background: #109f67;
+      background: #3f7c8d;
+    }
+  }
+button[type="submit"] {
+    transition: all 0.2s ease-in-out;
+    font: 18px Helvetica, Arial, sans-serif;
+    border: none;
+    // background: #35dc9b;
+    background: #438496;
+    color: #fff;
+    padding: 12px 12px;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #3f7c8d;
     }
   }
 }
@@ -137,4 +151,12 @@ form {
 
 .poll-option {
     width: 90%;
+}
+
+.extra-action-btn {
+    background: #565656 !important;
+}
+
+.extra-action-btn:hover {
+    background: #4d4d4d !important;
 }

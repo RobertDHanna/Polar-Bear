@@ -20,15 +20,17 @@
 
                 <hr />
             </div>
+            <form style="margin-bottom:0;margin-top: 10px;">
             <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-success vote-button" style="font-size: 22px;margin-top: 11px;background:#22c385;width:100%" v-on:click="vote($event)">Vote</button>
+                <div class="col-sm-6">
+                    <button style="float:right;" class="poll-btn create-poll-btn" type="submit" value="Vote" v-on:click="vote($event)"> Vote </button>
+                </div>
+                <div class="col-sm-6">
+                    <share-btn width="100%" :url="poll_obj.poll_url"></share-btn>
+                    <!-- <button style="width:100%;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Results" v-on:click="results($event)"><span class="glyphicon glyphicon-share"></span> <span class="action-button-text">Share</span> </button> -->
+                </div>
             </div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-danger" style="float:left;font-size: 22px;margin-top: 11px;background: #E94E4E; width:100%;" v-on:click="results($event)"><span class="share-btn"><i class="glyphicon glyphicon-share"></i></span> Share</button>
-            </div>
-            </div>
-            <!-- <button type="button" class="btn btn-success vote-button" style="float:right;font-size: 22px;margin-top: 11px;background:#22c385;" v-on:click="vote($event)">Vote</button> -->
+            </form>
         </div>
     </div>
 </template>
@@ -82,7 +84,8 @@ export default {
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {this.progressColorClassIndex = 0;}
             return this.progressColorClasses[ this.progressColorClassIndex++ ];
         },
-        vote: function() {
+        vote: function(e) {
+            e.preventDefault();
             this.showLoadingGif();
             this.hideLoadingGif(1000);
             window.location = this.poll_obj.poll_url;

@@ -33,12 +33,12 @@
         </div>
         <input style="display:none;" class="side-btn add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)"> 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <input class="poll-btn create-poll-btn" type="submit" value="Create Poll" v-on:click="createPoll($event)">
             </div>
-            <div class="col-md-6">
-                <input style="float:right;" class="side-btn add-option-btn" type="submit" value="Save Draft" v-on:click="addOption($event, true)"> 
-                <input style="float:left;" class="side-btn add-option-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
+            <div class="col-sm-6">
+                <input style="float:right;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Save Draft" v-on:click="addOption($event, true)"> 
+                <input style="float:left;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Add Option" v-on:click="addOption($event, true)">
             </div>
         </div>
         

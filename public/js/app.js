@@ -2420,6 +2420,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['poll'],
@@ -2445,7 +2447,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             return this.progressColorClasses[this.progressColorClassIndex++];
         },
-        vote: function vote() {
+        vote: function vote(e) {
+            e.preventDefault();
             this.showLoadingGif();
             this.hideLoadingGif(1000);
             window.location = this.poll_obj.poll_url;
@@ -2506,11 +2509,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['width', 'url'],
     methods: {
-        share: function share() {
+        share: function share(e) {
+            e.preventDefault();
             $("#delete-block-popup").modal('show');
+        },
+        copyToClipboard: function copyToClipboard(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.querySelector('#share-url').select();
+            document.execCommand('copy');
         }
     }
 });
@@ -2521,6 +2569,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2645,7 +2699,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     methods: {
-        vote: function vote() {
+        vote: function vote(e) {
+            e.preventDefault();
             this.hideMessages();
             if ($(":checkbox:checked").length === 0) {
                 this.showErrorMessage('You must select an option in order to vote!');
@@ -2682,7 +2737,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        results: function results() {
+        results: function results(e) {
+            e.preventDefault();
             this.hideMessages();
             this.showLoadingGif();
             this.hideLoadingGif(1000);
@@ -5156,7 +5212,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nbutton[data-v-0795c8e1] {\n    border: none;\n}\n.btn-danger[data-v-0795c8e1]:hover {\n    background: #d14646 !important;\n}\n.vote-button[data-v-0795c8e1]:hover {\n    background: #1eaf77 !important;\n}\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\n.action-button-text[data-v-0795c8e1] {\n    font-size: 16px;\n}\nbutton[data-v-0795c8e1] {\n    border: none;\n}\n.btn-danger[data-v-0795c8e1]:hover {\n    background: #d14646 !important;\n}\n.vote-button[data-v-0795c8e1]:hover {\n    background: #1eaf77 !important;\n}\n.checkbox-wrapper[data-v-0795c8e1] {\n    padding-left: 4%;\n    font-size: 16px;\n}\n.checkbox label[data-v-0795c8e1]:after, \n.radio label[data-v-0795c8e1]:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox .cr[data-v-0795c8e1],\n.radio .cr[data-v-0795c8e1] {\n    position: relative;\n    display: inline-block;\n    border: 1px solid #a9a9a9;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n}\n.radio .cr[data-v-0795c8e1] {\n    border-radius: 50%;\n}\n.checkbox .cr .cr-icon[data-v-0795c8e1],\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon[data-v-0795c8e1] {\n    margin-left: 0.04em;\n}\n.checkbox label input[type=\"checkbox\"][data-v-0795c8e1],\n.radio label input[type=\"radio\"][data-v-0795c8e1] {\n    display: none;\n}\n.checkbox label input[type=\"checkbox\"] + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"] + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox label input[type=\"checkbox\"]:checked + .cr > .cr-icon[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon[data-v-0795c8e1] {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox label input[type=\"checkbox\"]:disabled + .cr[data-v-0795c8e1],\n.radio label input[type=\"radio\"]:disabled + .cr[data-v-0795c8e1] {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 40 */
@@ -5177,7 +5233,7 @@ exports.push([module.i, "\n.poll-btn {\n    width: 100% !important;\n    margin-
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.dropdown-menu[data-v-7d295cca] {\n    left: inherit;\n    right: 0;\n}\n.share-btn[data-v-7d295cca] {\n    float: right;\n    font-size: 19px;\n    color: #636b6f;\n    border: none;\n    cursor: default !important;\n    background: none;\n}\n.btn-group[data-v-7d295cca] {\n    float: right;\n    cursor:pointer;\n}\n", ""]);
+exports.push([module.i, "\n.dropdown-menu[data-v-7d295cca]:before {\n  position: absolute;\n  bottom: -7px;\n  right: 9px;\n  display: inline-block;\n  border-right: 7px solid transparent;\n  border-top: 7px solid #ccc;\n  border-left: 7px solid transparent;\n  border-bottom-color: rgba(0, 0, 0, 0.2);\n  content: '';\n}\n.dropdown-menu[data-v-7d295cca]:after {\n  position: absolute;\n  bottom: -6px;\n  right: 10px;\n  display: inline-block;\n  border-right: 6px solid transparent;\n  border-top: 6px solid #ffffff;\n  border-left: 6px solid transparent;\n  content: '';\n}\n#copy-to-clipboard[data-v-7d295cca] {\n    border: none;\n}\n.dropdown-menu[data-v-7d295cca] {\n    left: inherit;\n    right: 0;\n    min-width: 315px;\n}\n.input-group[data-v-7d295cca] {\n    width: 94%;\n    padding-left: 6%;\n}\n.share-btn[data-v-7d295cca] {\n    float: right;\n    font-size: 19px;\n    color: #636b6f;\n    border: none;\n    cursor: default !important;\n    background: none;\n}\n.btn-group[data-v-7d295cca] {\n    float: right;\n    cursor:pointer;\n}\n", ""]);
 
 /***/ }),
 /* 43 */
@@ -32979,78 +33035,57 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-sitekey": "6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c('form', {
+    staticStyle: {
+      "margin-bottom": "0",
+      "margin-top": "10px"
+    }
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('button', {
-    staticClass: "btn btn-success vote-button",
-    staticStyle: {
-      "font-size": "22px",
-      "margin-top": "11px",
-      "background": "#22c385",
-      "width": "100%"
-    },
+    staticClass: "col-sm-6"
+  }, [_c('input', {
+    staticClass: "poll-btn create-poll-btn",
     attrs: {
-      "type": "button"
+      "type": "submit",
+      "value": "Vote"
     },
     on: {
       "click": function($event) {
         _vm.vote($event)
       }
     }
-  }, [_vm._v("Vote")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('share-btn', {
+    attrs: {
+      "width": "48%",
+      "url": _vm.poll_obj.poll_url
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "side-btn add-option-btn extra-action-btn",
     staticStyle: {
-      "float": "left",
-      "font-size": "22px",
-      "margin-top": "11px",
-      "background": "#E94E4E",
-      "width": "49%"
+      "float": "left"
     },
     attrs: {
-      "type": "button"
+      "type": "submit",
+      "value": "Results"
     },
     on: {
       "click": function($event) {
         _vm.results($event)
       }
     }
-  }, [_vm._m(1), _vm._v(" Share")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-danger",
-    staticStyle: {
-      "float": "right",
-      "font-size": "22px",
-      "margin-top": "11px",
-      "background": "#E94E4E",
-      "width": "49%"
-    },
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.results($event)
-      }
-    }
-  }, [_vm._m(2), _vm._v(" Results")])])])], 2)])
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-stats"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "action-button-text"
+  }, [_vm._v("Results")])])], 1)])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "cr"
   }, [_c('i', {
     staticClass: "cr-icon glyphicon glyphicon-ok"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "share-btn"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-share"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', [_c('i', {
-    staticClass: "glyphicon glyphicon-stats"
   })])
 }]}
 module.exports.render._withStripped = true
@@ -33174,53 +33209,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-valuemax": "100"
       }
     })]), _vm._v(" "), _c('hr')])
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('form', {
+    staticStyle: {
+      "margin-bottom": "0",
+      "margin-top": "10px"
+    }
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6"
+    staticClass: "col-sm-6"
   }, [_c('button', {
-    staticClass: "btn btn-success vote-button",
+    staticClass: "poll-btn create-poll-btn",
     staticStyle: {
-      "font-size": "22px",
-      "margin-top": "11px",
-      "background": "#22c385",
-      "width": "100%"
+      "float": "right"
     },
     attrs: {
-      "type": "button"
+      "type": "submit",
+      "value": "Vote"
     },
     on: {
       "click": function($event) {
         _vm.vote($event)
       }
     }
-  }, [_vm._v("Vote")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    staticStyle: {
-      "float": "left",
-      "font-size": "22px",
-      "margin-top": "11px",
-      "background": "#E94E4E",
-      "width": "100%"
-    },
+  }, [_vm._v(" Vote ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('share-btn', {
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.results($event)
-      }
+      "width": "100%",
+      "url": _vm.poll_obj.poll_url
     }
-  }, [_vm._m(0), _vm._v(" Share")])])])], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "share-btn"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-share"
-  })])
-}]}
+  })], 1)])])], 2)])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33253,7 +33273,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6"
+    staticClass: "col-sm-6"
   }, [_c('input', {
     staticClass: "poll-btn create-poll-btn",
     attrs: {
@@ -33266,9 +33286,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
+    staticClass: "col-sm-6"
   }, [_c('input', {
-    staticClass: "side-btn add-option-btn",
+    staticClass: "side-btn add-option-btn extra-action-btn",
     staticStyle: {
       "float": "right"
     },
@@ -33282,7 +33302,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    staticClass: "side-btn add-option-btn",
+    staticClass: "side-btn add-option-btn extra-action-btn",
     staticStyle: {
       "float": "left"
     },
@@ -33413,48 +33433,77 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "btn-group"
+    staticClass: "btn-group dropup",
+    style: ({
+      width: _vm.width
+    })
   }, [_c('button', {
-    staticClass: "btn btn-default dropdown-toggle share-btn",
+    staticClass: "dropdown-toggle side-btn add-option-btn extra-action-btn",
+    staticStyle: {
+      "width": "100%"
+    },
     attrs: {
-      "type": "button",
       "data-toggle": "dropdown",
       "aria-haspopup": "true",
-      "aria-expanded": "false"
+      "aria-expanded": "false",
+      "type": "submit",
+      "value": "Results"
     },
     on: {
       "click": function($event) {
         _vm.share($event)
       }
     }
-  }, [_vm._m(0)]), _vm._v(" "), _vm._m(1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "share-btn",
-    attrs: {
-      "data-toggle": "tooltip",
-      "title": "Share"
-    }
-  }, [_c('i', {
+  }, [_c('span', {
     staticClass: "glyphicon glyphicon-share"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
+  }), _vm._v(" "), _c('span', {
+    staticClass: "action-button-text"
+  }, [_vm._v("Share")])]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
-  }, [_c('li', [_c('input', {
-    attrs: {
-      "value": "nothin"
+  }, [_c('li', [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-9",
+    staticStyle: {
+      "padding-right": "0"
     }
-  })]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('span', {
+    staticClass: "input-group-addon",
     attrs: {
-      "href": "#"
+      "id": "basic-addon1"
     }
-  }, [_vm._v("Another action")])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("url: ")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
     attrs: {
-      "href": "#"
+      "id": "share-url",
+      "type": "text",
+      "aria-describedby": "basic-addon1"
+    },
+    domProps: {
+      "value": _vm.url
     }
-  }, [_vm._v("Something else here")])])])
-}]}
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-3",
+    staticStyle: {
+      "padding-left": "0"
+    }
+  }, [_c('button', {
+    staticClass: "btn",
+    staticStyle: {
+      "background": "none"
+    },
+    attrs: {
+      "id": "copy-to-clipboard"
+    },
+    on: {
+      "click": function($event) {
+        _vm.copyToClipboard($event)
+      }
+    }
+  }, [_vm._v("Copy")])])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

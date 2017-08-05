@@ -12,20 +12,26 @@
                 </label>
             </div>
             <div v-if="poll_obj.captcha" class="g-recaptcha" data-sitekey="6Lf_iisUAAAAAFxQk7FjMsEjvXiseoEcihztjL-C"></div> 
+            <form style="margin-bottom:0;margin-top:10px;">
             <div class="row">
-                <div class="col-md-6">
-                    <button type="button" class="btn btn-success vote-button" style="font-size: 22px;margin-top: 11px;background:#22c385;width:100%" v-on:click="vote($event)">Vote</button>
+                <div class="col-sm-6">
+                    <input class="poll-btn create-poll-btn" type="submit" value="Vote" v-on:click="vote($event)">
                 </div>
-                <div class="col-md-6">
-                    <button type="button" class="btn btn-danger" style="float:left;font-size: 22px;margin-top: 11px;background: #E94E4E; width:49%;" v-on:click="results($event)"><span class="share-btn"><i class="glyphicon glyphicon-share"></i></span> Share</button>
-                    <button type="button" class="btn btn-danger" style="float:right;font-size: 22px;margin-top: 11px;background: #E94E4E; width:49%;" v-on:click="results($event)"><span><i class="glyphicon glyphicon-stats"></i></span> Results</button>
+                <div class="col-sm-6">
+                    <share-btn width="48%" :url="poll_obj.poll_url"></share-btn>
+                    <!-- <button style="float:right;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Share" v-on:click="results($event)"><span class="glyphicon glyphicon-share"></span> <span class="action-button-text">Share</span> </button> -->
+                    <button style="float:left;" class="side-btn add-option-btn extra-action-btn" type="submit" value="Results" v-on:click="results($event)"><span class="glyphicon glyphicon-stats"></span> <span class="action-button-text">Results</span> </button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </template>
 
 <style scoped>
+.action-button-text {
+    font-size: 16px;
+}
 button {
     border: none;
 }
@@ -123,7 +129,8 @@ export default {
         };
     },
     methods: {
-        vote: function() {
+        vote: function(e) {
+            e.preventDefault();
             this.hideMessages();
             if ($(":checkbox:checked").length === 0)
             {
@@ -162,7 +169,8 @@ export default {
                 }
             });
         },
-        results: function() {
+        results: function(e) {
+            e.preventDefault();
             this.hideMessages();
             this.showLoadingGif();
             this.hideLoadingGif(1000);
