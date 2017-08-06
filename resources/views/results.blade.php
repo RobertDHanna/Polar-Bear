@@ -2,6 +2,9 @@
 @section('nav')
     @include('components.nav')
 @endsection
+@section('title')
+<title>{{$poll['question']}} | Poll Jam</title>
+@endsection
 @section('content')
     <div class="container-fluid poll-main-body">
         <div class="row">

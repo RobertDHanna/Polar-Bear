@@ -17,11 +17,18 @@
         
         <div class="checkbox-wrapper">
             <div class="checkbox-poll-option checkbox">
-                <label>
-                    <input id="p-use-captcha" type="checkbox" value="">
-                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                    <div style="margin-left: 45px; color:white;">Spam Protection</div>
-                </label>
+                <div class="row"> 
+                    <div class="col-xs-10">
+                    <label>
+                        <input id="p-use-captcha" type="checkbox" value="">
+                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                        <div style="margin-left: 45px; color:white;">Spam Protection</div>
+                    </label>
+                    </div>
+                    <div class="col-xs-2">
+                        <span style="color:white;" data-toggle="tooltip" title="Users will be required to solve a captcha before they can vote."><i class="glyphicon glyphicon-question-sign"></i></span>
+                    </div>
+                 </div>
             </div>
             <div class="checkbox-poll-option checkbox">
                 <label>
@@ -46,6 +53,9 @@
 </template>
 
 <style>
+.tooltip-inner {
+    width: 200px;
+}
 .poll-btn {
     width: 100% !important;
     margin-top: 11px;
@@ -77,6 +87,7 @@
     float:right;
     color:white;
     display:none;
+    cursor: pointer;
 }
 
 .create-poll-btn {
@@ -228,7 +239,7 @@ export default {
             }
             var uid = this.nextUid();
             if (uid > 10) { return; } // 10 options max.
-            var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn" data-toggle="tooltip" title="delete"></span> <label class="poll-option"> <input maxlength="200" id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
+            var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn"></span> <label class="poll-option"> <input maxlength="200" id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
             if ($('.poll').find('.poll-option-input').length > 0)
             {
                 $('.poll-option-container').last().after(element);
@@ -243,8 +254,9 @@ export default {
             }
             if (clicked)
             {
-                element.show('normal');
-                element.find('.poll-option-input').focus();
+                element.show('normal', function() {
+                    element.find('.poll-option-input').focus();
+                });
             }
             else
             {
@@ -298,7 +310,7 @@ export default {
                 }
             });
         },
-        getForm: function() {
+        getForm: function(raw = false) {
             var form = {
                 'question' : $('#poll-question-input').val(),
                 'options' : [],
@@ -308,7 +320,7 @@ export default {
             };
 
             $('.poll-option-input').each(function(i, val) {
-                if ($(val).val().trim().length > 0)
+                if ($(val).val().trim().length > 0 || raw)
                 {
                     form.options.push( $(val).val() );
                 }
@@ -317,7 +329,7 @@ export default {
         },
         saveDraft: function(e) {
             e.preventDefault();
-            var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm())));
+            var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm(true))));
             window.history.pushState("", "Draft", uri);
             this.showInfoMessage('The URL of this page has been updated to include the current poll information. You can use this URL to come back to this page at any time to edit or submit the current poll.');
         },
