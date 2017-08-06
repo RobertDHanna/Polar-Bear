@@ -6,7 +6,7 @@
                 <div class="row" v-if="!is_mobile">
                     <div class="col-xs-9" style="padding-right:0">
                         <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">url: </span>
+                            <span class="input-group-addon" id="basic-addon1">URL: </span>
                             <input id="share-url" type="text" class="form-control" :value="url" aria-describedby="basic-addon1">
                         </div>
                     </div>
@@ -16,7 +16,7 @@
                 </div>
                 <div v-else>
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">url: </span>
+                        <span class="input-group-addon" id="basic-addon1">URL: </span>
                         <input id="share-url" type="text" class="form-control" :value="url" aria-describedby="basic-addon1">
                     </div>
                 </div>

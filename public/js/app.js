@@ -2318,7 +2318,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data: form,
                 success: function success(response) {
                     console.log('success', response);
-                    _this.hideLoadingGif();
+                    _this.hideLoadingGif(1000);
                     window.location = response.poll.poll_url;
                 },
                 error: function error(_error) {
@@ -2345,7 +2345,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveDraft: function saveDraft(e) {
             e.preventDefault();
             var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm())));
-            this.showInfoMessage('Your unique draft url is: <strong>' + uri + '</strong>');
+            window.history.pushState("", "Draft", uri);
+            this.showInfoMessage('The URL of this page has been updated to include the current poll information. You can use this URL to come back to this page at any time to edit or submit the current poll.');
         },
         getParameterByName: function getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -2367,10 +2368,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         showErrorMessage: function showErrorMessage(message) {
+            this.scrollToTop();
             $('#poll-error-message').find('#poll-error-message-text').html(message);
             $('#poll-error-message').show('normal');
         },
         showInfoMessage: function showInfoMessage(message) {
+            this.scrollToTop();
             $('#poll-info-message').find('#poll-info-message-text').html(message);
             $('#poll-info-message').show('normal');
         },
@@ -2388,6 +2391,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         hideMessages: function hideMessages() {
             $('#poll-error-message').hide('normal');
             $('#poll-info-message').hide('normal');
+        },
+        scrollToTop: function scrollToTop() {
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
     }
 });
@@ -33525,7 +33531,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "basic-addon1"
     }
-  }, [_vm._v("url: ")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("URL: ")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "id": "share-url",
@@ -33560,7 +33566,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "basic-addon1"
     }
-  }, [_vm._v("url: ")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("URL: ")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "id": "share-url",

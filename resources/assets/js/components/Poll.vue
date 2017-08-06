@@ -290,7 +290,7 @@ export default {
                 data: form,
                 success: function(response) {
                     console.log('success', response);
-                    _this.hideLoadingGif();
+                    _this.hideLoadingGif(1000);
                     window.location = response.poll.poll_url;
                 },
                 error: function(error) {
@@ -318,7 +318,8 @@ export default {
         saveDraft: function(e) {
             e.preventDefault();
             var uri = encodeURI(this.addQueryParamToUrl(window.location.href, 'draft', JSON.stringify(this.getForm())));
-            this.showInfoMessage('Your unique draft url is: <strong>' + uri + '</strong>');
+            window.history.pushState("", "Draft", uri);
+            this.showInfoMessage('The URL of this page has been updated to include the current poll information. You can use this URL to come back to this page at any time to edit or submit the current poll.');
         },
         getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -342,10 +343,12 @@ export default {
             }
         },
         showErrorMessage: function(message) {
+            this.scrollToTop();
             $('#poll-error-message').find('#poll-error-message-text').html(message);
             $('#poll-error-message').show('normal');
         },
         showInfoMessage: function(message) {
+            this.scrollToTop();
             $('#poll-info-message').find('#poll-info-message-text').html(message);
             $('#poll-info-message').show('normal');
         },
@@ -359,6 +362,9 @@ export default {
         hideMessages: function() {
             $('#poll-error-message').hide('normal');
             $('#poll-info-message').hide('normal');
+        },
+        scrollToTop: function() {
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
     }
 }

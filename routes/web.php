@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 // Polls
 Route::get('/poll/{id}', 'PollController@get');
@@ -27,3 +27,6 @@ Route::put('/poll', 'PollController@edit');
 
 // Votes
 Route::post('/vote', 'VoteController@processVote');
+
+// About
+Route::get('/about', 'AboutController@about')->name('about');
