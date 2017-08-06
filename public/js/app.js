@@ -2219,6 +2219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['question', 'options'],
@@ -2286,7 +2287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 $('#poll-question').after(element);
             }
             if (clicked) {
-                element.show('normal', function () {
+                element.show('fast', function () {
                     element.find('.poll-option-input').focus();
                 });
             } else {
@@ -5294,7 +5295,7 @@ exports.push([module.i, "\nbutton[data-v-2f5064d4] {\n    border: none;\n}\n.vot
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.tooltip-inner {\n    width: 200px;\n}\n.poll-btn {\n    width: 100% !important;\n    margin-top: 11px;\n}\n.side-btn {\n    width: 48%;\n    margin-top: 11px;\n}\n.save-draft-btn {\n    margin-right: 21% !important; \n    float: right !important;\n    background: white !important;\n    color: #636b6f !important;\n    font-size: 13px !important;\n    padding: 9px 11px !important;\n    transition: all 0.2s ease-in-out !important;\n}\n.save-draft-btn:hover {\n    background: #E7E7E7 !important;\n}\n.add-option-btn {\n    /* margin-right:2%;  */\n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n    cursor: pointer;\n}\n.create-poll-btn {\n    /* float: right; */\n    /* margin-right: 10%; */\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        /* margin-top: 2%; */\n        transition: all 0.2s ease-in-out;\n}\n}\n.checkbox-poll-option {\n     margin-bottom: 15px; \n     width: 211px;\n}\n.checkbox-wrapper {\n    font-size: 16px;\n}\n.radio label, .checkbox label {\n    padding-left: 0;\n    left: -18px;\n}\n.checkbox-poll-option label:after, \n.radio label:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox-poll-option .cr,\n.radio .cr {\n    position: relative;\n    display: inline-block;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n    background: white;\n    opacity: 1 !important;\n    font: unset;\n    color: #636b6f;\n}\n.radio .cr {\n    border-radius: 50%;\n}\n.checkbox-poll-option .cr .cr-icon,\n.radio .cr .cr-icon {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon {\n    margin-left: 0.04em;\n}\n.checkbox-poll-option label input[type=\"checkbox\"],\n.radio label input[type=\"radio\"] {\n    display: none;\n}\n.checkbox-poll-option label input[type=\"checkbox\"] + .cr > .cr-icon,\n.radio label input[type=\"radio\"] + .cr > .cr-icon {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:checked + .cr > .cr-icon,\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:disabled + .cr,\n.radio label input[type=\"radio\"]:disabled + .cr {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\n.tooltip-inner {\n    width: 250px;\n}\n.poll-btn {\n    width: 100% !important;\n    margin-top: 11px;\n}\n.side-btn {\n    width: 48%;\n    margin-top: 11px;\n}\n.save-draft-btn {\n    margin-right: 21% !important; \n    float: right !important;\n    background: white !important;\n    color: #636b6f !important;\n    font-size: 13px !important;\n    padding: 9px 11px !important;\n    transition: all 0.2s ease-in-out !important;\n}\n.save-draft-btn:hover {\n    background: #E7E7E7 !important;\n}\n.add-option-btn {\n    /* margin-right:2%;  */\n    margin-bottom: 2%;\n}\n.remove-option-btn {\n    float:right;\n    color:white;\n    display:none;\n    cursor: pointer;\n}\n.create-poll-btn {\n    /* float: right; */\n    /* margin-right: 10%; */\n    padding: 12px 12px !important;\n}\n@media (max-width: 1145px) {\n.create-poll-btn {\n        float: none;\n        /* margin-top: 2%; */\n        transition: all 0.2s ease-in-out;\n}\n}\n.checkbox-poll-option {\n     margin-bottom: 15px; \n     width: 211px;\n}\n.checkbox-wrapper {\n    font-size: 16px;\n}\n.radio label, .checkbox label {\n    padding-left: 0;\n    left: -18px;\n}\n.checkbox-poll-option label:after, \n.radio label:after {\n    content: '';\n    display: table;\n    clear: both;\n}\n.checkbox-poll-option .cr,\n.radio .cr {\n    position: relative;\n    display: inline-block;\n    border-radius: .25em;\n    width: 1.3em;\n    height: 1.3em;\n    float: left;\n    margin-right: .5em;\n    background: white;\n    opacity: 1 !important;\n    font: unset;\n    color: #636b6f;\n}\n.radio .cr {\n    border-radius: 50%;\n}\n.checkbox-poll-option .cr .cr-icon,\n.radio .cr .cr-icon {\n    position: absolute;\n    font-size: .8em;\n    line-height: 0;\n    top: 50%;\n    left: 20%;\n}\n.radio .cr .cr-icon {\n    margin-left: 0.04em;\n}\n.checkbox-poll-option label input[type=\"checkbox\"],\n.radio label input[type=\"radio\"] {\n    display: none;\n}\n.checkbox-poll-option label input[type=\"checkbox\"] + .cr > .cr-icon,\n.radio label input[type=\"radio\"] + .cr > .cr-icon {\n    -webkit-transform: scale(3) rotateZ(-20deg);\n            transform: scale(3) rotateZ(-20deg);\n    opacity: 0;\n    /* transition: all .3s ease-in; */\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:checked + .cr > .cr-icon,\n.radio label input[type=\"radio\"]:checked + .cr > .cr-icon {\n    -webkit-transform: scale(1) rotateZ(0deg);\n            transform: scale(1) rotateZ(0deg);\n    opacity: 1;\n}\n.checkbox-poll-option label input[type=\"checkbox\"]:disabled + .cr,\n.radio label input[type=\"radio\"]:disabled + .cr {\n    opacity: .5;\n}\n", ""]);
 
 /***/ }),
 /* 42 */
@@ -33403,7 +33404,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-xs-6"
+    staticClass: "col-xs-12"
   }, [_c('select', {
     staticClass: "selectpicker",
     attrs: {
@@ -33421,7 +33422,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "ip"
     }
-  }, [_vm._v("Filter By IP Address")])])])])
+  }, [_vm._v("Filter By IP Address")])]), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "color": "white",
+      "padding-left": "10px",
+      "font-size": "16px"
+    },
+    attrs: {
+      "data-toggle": "tooltip",
+      "title": "Prevent users from taking your poll more than once by blocking votes that come from the same IP address (not recommended) or from the same browser cookie."
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-question-sign"
+  })])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "checkbox-wrapper"
@@ -33454,7 +33467,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "data-toggle": "tooltip",
-      "title": "Users will be required to solve a captcha before they can vote."
+      "title": "Users will be required to solve a simple CAPTCHA before they can vote."
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-question-sign"

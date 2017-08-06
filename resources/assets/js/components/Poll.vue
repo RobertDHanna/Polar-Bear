@@ -6,12 +6,13 @@
         </label>
 
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <select id="dup-check" class="selectpicker">
                     <option value="none">Don't Check Duplicates</option>
                     <option value="cookie">Filter By Cookie</option>
                     <option value="ip">Filter By IP Address</option>
                 </select>
+                <span style="color:white;padding-left:10px;font-size:16px;" data-toggle="tooltip" title="Prevent users from taking your poll more than once by blocking votes that come from the same IP address (not recommended) or from the same browser cookie."><i class="glyphicon glyphicon-question-sign"></i></span>
             </div>
         </div>
         
@@ -26,7 +27,7 @@
                     </label>
                     </div>
                     <div class="col-xs-2">
-                        <span style="color:white;" data-toggle="tooltip" title="Users will be required to solve a captcha before they can vote."><i class="glyphicon glyphicon-question-sign"></i></span>
+                        <span style="color:white;" data-toggle="tooltip" title="Users will be required to solve a simple CAPTCHA before they can vote."><i class="glyphicon glyphicon-question-sign"></i></span>
                     </div>
                  </div>
             </div>
@@ -54,7 +55,7 @@
 
 <style>
 .tooltip-inner {
-    width: 200px;
+    width: 250px;
 }
 .poll-btn {
     width: 100% !important;
@@ -254,7 +255,7 @@ export default {
             }
             if (clicked)
             {
-                element.show('normal', function() {
+                element.show('fast', function() {
                     element.find('.poll-option-input').focus();
                 });
             }
