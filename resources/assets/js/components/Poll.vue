@@ -238,8 +238,23 @@ export default {
             {
                 e.preventDefault();
             }
+            // if (clicked)
+            // {
+            //     var empty_elem = false;
+            //     $('.poll-option-input').each(function(i, elem) {
+            //         if ($(elem).val().trim().length < 1 && !empty_elem)
+            //         {
+            //             empty_elem = $(elem);
+            //         }
+            //     });
+            //     if (empty_elem)
+            //     {
+            //         empty_elem.focus();
+            //         return;
+            //     }
+            // }
             var uid = this.nextUid();
-            if (uid > 10) { return; } // 10 options max.
+            if ($('.poll-option-container').length > 19) { return; } // 20 options max.
             var element = $('<div class="poll-option-container"><span id="poll-option-'+uid+'-remove" class="glyphicon glyphicon-remove remove-option-btn"></span> <label class="poll-option"> <input maxlength="200" id="poll-option-'+uid+'" class="poll-option-input" type="text" placeholder="You can put an option here."> <span>Option</span> </label></div>').hide();
             if ($('.poll').find('.poll-option-input').length > 0)
             {

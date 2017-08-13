@@ -19,7 +19,8 @@ class Poll extends Model
 
     public function getPollUrlAttribute()
     {
-        $endpoint = "/poll/$this->id";
+        $id = base64_encode($this->id);
+        $endpoint = "/poll/$id";
         if (env('APP_ENV') === 'local')
         {
             return url($endpoint);

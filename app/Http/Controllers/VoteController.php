@@ -93,7 +93,7 @@ class VoteController extends Controller
             ]);
         }
 
-        $response = response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => $poll->id]), 200]);
+        $response = response(['message' => 'Vote(s) have been cast.', 'result_url' => route('poll-results', ['poll_id' => base64_encode($poll->id)]), 200]);
 
         if (!$request->cookie('polljam-c') && $cookie)
         {
@@ -104,6 +104,12 @@ class VoteController extends Controller
 
     public function getResultsView($id)
     {
+        $id = base64_decode($id);
+        if (!is_numeric($id))
+        {
+            return view('welcome');
+        }
+
         $poll = $this->getResults($id);
         return !is_null($poll) ? view('results')->with('poll', $poll) : redirect('/');
     }

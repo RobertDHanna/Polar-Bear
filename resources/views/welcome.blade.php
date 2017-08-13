@@ -3,7 +3,7 @@
     @include('components.nav')
 @endsection
 @section('title')
-<title>Create a Free Poll | Poll Jam</title>
+    <title>Create a Free Poll | Poll Jam</title>
 @endsection
 @section('content')
     <div class="container-fluid poll-main-body">

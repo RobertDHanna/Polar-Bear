@@ -17,6 +17,12 @@ class PollController extends Controller
      */
     public function get($id)
     {
+        $id = base64_decode($id);
+        if (!is_numeric($id))
+        {
+            return view('welcome');
+        }
+
         $poll = Poll::find($id);
         if (!$poll) {
             return view('welcome');
@@ -38,10 +44,11 @@ class PollController extends Controller
         $custom_error_message = [
             'size' => 'The :attribute must have at least one element.',
             'options.min' => 'There must be at least two :attribute.',
+            'options.max' => 'There can only be up to twenty :attribute',
         ];
         $validator = Validator::make($request->all(), [
             'question' => 'required|max:200', // 200 characters max.
-            'options' => 'required|min:2|max:10', // minimum of two options and maximum of 10.
+            'options' => 'required|min:2|max:20', // minimum of two options and maximum of 10.
             'options.*' => 'required|max:200', // 200 characters max per option.
         ], $custom_error_message);
 
