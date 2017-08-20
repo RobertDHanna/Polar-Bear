@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         computePercent: function(num_votes) {
-            return num_votes === 0 ? 0 : parseInt( (num_votes / this.poll_obj.total_votes) * 100 );
+            return num_votes === 0 ? 0 : parseFloat( (num_votes / this.poll_obj.total_votes) * 100 ).toFixed(2);
         },
         getNextProgressBarColor: function() {
             if (this.progressColorClassIndex > this.progressColorClasses.length - 1) {this.progressColorClassIndex = 0;}
